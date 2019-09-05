@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+/.idea/*
+/sources/node/node_modules/*
+/data/mysql/
+/sources/gui-back/node_modules/
+/sources/gui-front/node_modules/
+/sources/gui-front/src/**/*.js*

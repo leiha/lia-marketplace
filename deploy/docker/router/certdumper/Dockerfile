@@ -1,0 +1,1 @@
+FROM svendowideit/traefik-certdumper:latest

@@ -1,0 +1,225 @@
+version: "3"
+
+networks:
+  test:
+
+services:
+
+  router-traefik:  # see https://docs.traefik.io/#the-traefik-quickstart-using-docker
+    image: test-router-traefik
+    container_name: test-router-traefik
+    build:
+      context: ./router/traefik
+    networks:
+      - test
+    command: --docker
+    ports:
+      - "80:80"
+    volumes:
+
+      # Mount all needed for time sync with host
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+      # Mount docker daemon of host
+      - /var/run/docker.sock:/var/run/docker.sock
+
+#  router-certdumper:
+#    image: test-router-certdumper
+#    container_name: test-router-certdumper
+#    build:
+#      context: ./router/certdumper
+#    volumes:
+#      - ../../mounts/traefik/acme:/traefik
+#      - ../../mounts/certs:/dump
+#  #        deploy:
+#  #            mode: replicated
+#  #            replicas: 1
+
+  gui-front:
+    image: test-gui-front
+    container_name: test-gui-front
+    labels:
+        - "traefik.enable=true"
+        - "traefik.front.port=80"
+        - "traefik.front.protocol=http"
+    networks:
+      - test
+    build:
+      context: ./gui/front
+      args:
+        UID: ${UIDz}
+    ports:
+      - 8000:8000
+      - 8080:8080
+    volumes:
+
+      # Mount all needed for time sync with host
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+      # Mount code
+      - ../../sources/gui-front:/code
+
+      # Mount logs
+#      - ../../log/nodejs:/var/log:rw
+
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+
+  gui-back:
+    image: test-gui-back
+    container_name: test-gui-back
+    labels:
+      - "traefik.enable=true"
+      - "traefik.back.frontend.rule=Headers:XHR-UI-Request,1"
+      - "traefik.back.port=80"
+      - "traefik.back.protocol=http"
+    networks:
+      - test
+    build:
+      context: ./gui/back
+      args:
+        UID: ${UIDz}
+    ports:
+      - 80
+    volumes:
+
+      # Mount all needed for time sync with host
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+      # Mount code
+      - ../../sources/gui-back:/code
+
+      # Mount logs
+    #      - ../../log/nodejs:/var/log:rw
+
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+
+  api-web:
+    image: test-api-web
+    container_name: test-api-web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.api.frontend.rule=PathPrefix:/api"
+      - "traefik.api.port=80"
+      - "traefik.api.protocol=http"
+      - "traefik.livereload.port=35729"
+    networks:
+      - test
+    build:
+      context: ./api/nginx
+      args:
+        UID: ${UIDz}
+    expose:
+      - "80"
+      - "35729"
+    links:
+      - api-php
+    volumes:
+
+      # Mount all needed for time sync with host
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+      # Mount code
+      - ../../sources/api:/code
+
+      # Mount configuration
+      - ./api/nginx/conf.d:/etc/nginx/conf.d/
+
+      # Mount logs
+    #      - ../../log/web:/var/log/nginx:rw
+
+  api-php:
+    image: test-api-php
+    container_name: test-api-php
+    networks:
+      - test
+    build:
+      context: ./api/php
+      args:
+        UID: ${UIDz}
+    depends_on:
+      - api-mysql
+    links:
+      - api-mysql
+    volumes:
+
+      # Mount all needed for time sync with host
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+      # Mount code
+      - ../../sources/api:/code
+
+      # Mount configuration
+      - ./api/php/config/php.ini:/usr/local/etc/php/php.ini
+      - ./api/php/config/docker.conf:/usr/local/etc/php-fpm.d/docker.conf
+
+      # Mount logs
+#      - ../../log/php:/var/log/php:rw
+
+  api-mysql:
+    image: test-api-mysql
+    container_name: test-api-mysql
+    networks:
+      - test
+    build:
+      context: ./api/mysql
+      args:
+        UID: ${UIDz}
+    ports:
+      - 3306:3306
+    volumes:
+
+      # Mount all needed for time sync with host
+#      - /etc/localtime:/etc/localtime:ro
+#      - /etc/timezone:/etc/timezone:ro
+
+      # Mount data
+      - ../../data/mysql:/var/lib/mysql:rw
+
+      # Mount configuration
+      - ./api/mysql/conf/my.cnf:/etc/mysql/my.cnf
+
+      # Mount logs
+    #      - ../../log/mysql:/var/log/mysql:rw
+
+    environment:
+      # MYSQL_ROOT_PASSWORD
+      # This variable is mandatory and specifies the password that will be set for the MySQL root superuser
+      # account. In the above example, it was set to my-secret-pw.
+      - MYSQL_ROOT_PASSWORD=nopassword
+
+      #MYSQL_DATABASE
+      # This variable is optional and allows you to specify the name of a database to be created on image
+      # startup. If a user/password was supplied (see below) then that user will be granted superuser
+      # access (corresponding to GRANT ALL) to this database.
+      - MYSQL_DATABASE=test
+
+      # MYSQL_USER, MYSQL_PASSWORD
+      # These variables are optional, used in conjunction to create a new user and to set that user's
+      # password. This user will be granted superuser permissions (see above) for the database specified
+      # by the MYSQL_DATABASE variable. Both variables are required for a user to be created.
+      # Do note that there is no need to use this mechanism to create the root superuser, that user gets
+      # created by default with the password specified by the MYSQL_ROOT_PASSWORD variable.
+      - MYSQL_USER=trucksme
+      - MYSQL_PASSWORD=nopassword
+
+      # MYSQL_ALLOW_EMPTY_PASSWORD
+      # This is an optional variable. Set to yes to allow the container to be started with a blank password
+      # for the root user. NOTE: Setting this variable to yes is not recommended unless you really know
+      # what you are doing, since this will leave your MySQL instance completely unprotected, allowing
+      # anyone to gain complete superuser access.
+
+      # MYSQL_RANDOM_ROOT_PASSWORD
+      # This is an optional variable. Set to yes to generate a random initial password for the root user
+      # (using pwgen). The generated root password will be printed to stdout (GENERATED ROOT PASSWORD: .....).
+
+      # MYSQL_ONETIME_PASSWORD
+      # Sets root (not the user specified in MYSQL_USER!) user as expired once init is complete, forcing
+      # a password change on first login. NOTE: This feature is supported on MySQL 5.6+ only. Using this
+      # option on MySQL 5.5 will throw an appropriate error during initialization.

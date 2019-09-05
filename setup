@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+prevdir=$PWD
+basedir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd ${basedir}
+
+
+# Define worker functions for the next treatments
+yaml      () { docker run --rm --name=deploy-yaml-worker -v ${basedir}:/workdir mikefarah/yq yq r $1 $2; }
+yaml_set  () { docker run --rm --name=deploy-yaml-worker -v ${basedir}:/workdir mikefarah/yq yq w -i $1 $2 $3; }
+yaml_del  () { docker run --rm --name=deploy-yaml-worker -v ${basedir}:/workdir mikefarah/yq yq d -i $1 $2; }
+config    () { yaml ./config.yml $1;  }
+config_set() { yaml_set $1 $2 `config $3`;  }
+
+setup () {
+    for command in "$@"
+    do
+        case ${command} in
+
+        clean)
+            echo "Clean docker cache !"
+
+            docker system prune -a -f
+            ;;
+
+        down)
+            echo "Clean environment ( image(s) , volume(s) , network(s) and container(s) )"
+
+            cd deploy/docker
+            UIDz=${UID} docker-compose down -v --rmi all
+            cd ${basedir}
+            ;;
+
+        up)
+            echo "Run containers ( and build if needed )"
+
+            cd deploy/docker
+            UIDz=${UID} docker-compose up -d
+            cd ${basedir}
+            ;;
+
+        stop)
+            echo "Stop containers"
+
+            cd deploy/docker
+            UIDz=${UID} docker-compose stop
+            cd ${basedir}
+            ;;
+
+        start)
+            echo "Start containers"
+
+            cd deploy/docker
+            UIDz=${UID} docker-compose start
+            cd ${basedir}
+            ;;
+
+        build)
+            echo "Build containers"
+
+            cd deploy/docker
+            UIDz=${UID} docker-compose build
+            cd ${basedir}
+            ;;
+
+        prepare)
+            echo "Prepare"
+
+            cd deploy
+            . ./prepare.sh
+            cd ${basedir}
+            ;;
+
+        configure)
+            echo "Configure"
+
+            cd deploy
+            . ./configure.sh
+            cd ${basedir}
+
+            setup configure_db configure_jwt
+            ;;
+
+        configure_jwt)
+            echo "Configure JWT"
+
+            cd deploy
+            . ./configure_jwt.sh
+            cd ${basedir}
+            ;;
+
+        configure_db)
+            echo "Configure DB"
+
+            cd deploy
+            . ./configure_db.sh
+            cd ${basedir}
+            ;;
+
+        finalize)
+            echo "Finalize"
+
+            cd deploy
+            . ./finalize.sh
+            cd ${basedir}
+            ;;
+
+        token)
+            cd deploy
+            . ./getToken.sh
+            cd ${basedir}
+            ;;
+
+        deploy)
+            echo "Deploy"
+
+            setup down prepare up configure finalize
+            ;;
+
+        *) setup_error
+        esac
+    done
+}
+
+setup_error()
+{
+echo "
+Error !
+Available args :
+- deploy | clean | up | down | start | stop | build | prepare | configure | configure_db | configure_jwt | token | finalize
+"
+exit 1
+}
+
+if [ "$#" -gt 0 ]; then
+    setup "$@"
+    else
+        setup_error
+fi

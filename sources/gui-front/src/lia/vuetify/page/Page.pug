@@ -1,0 +1,8 @@
+
+v-container
+    v-row
+        component( v-if="slots.header && slots.header.vue" :is="slots.header.vue.build( )" )
+    v-row
+        component( v-if="slots.body && slots.body.vue" :is="slots.body.vue.build( )" )
+    v-row
+        component( v-if="slots.footer && slots.footer.vue" :is="slots.footer.vue.build( )" )
