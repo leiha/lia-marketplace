@@ -1,7 +1,9 @@
 
 import { VueComponent , Slot } from './Vue-Component';
 import * as events      from '../async/Events';
-export { Slot }
+import * as o from "@lia/$object/$Object";
+import { Facade } from "@lia/vue/Vue-Facade";
+export { Slot , Facade }
 
 export class LifeCycle
 {
@@ -16,7 +18,7 @@ export class LifeCycle
     destroyed     : Function[] = [];
 }
 
-export class Events {
+export class Events extends o.Events {
 
 }
 
@@ -37,28 +39,18 @@ export class Vue <
     TData  extends Data  = Data ,
     TSlots extends Slots = Slots ,
     TProps extends Props = Props ,
-    TEvents extends Events = Events >
+    TEvents extends Events = Events
+    > extends o.$Object < TEvents >
 {
-    private $events    : events.Events < TEvents > ;
     private $lifeCycle = new events.Events < LifeCycle > ( ) ;
     private $component : VueComponent  < TData , TSlots , TProps , TEvents , Vue < TData , TSlots , TProps , TEvents > > ;
 
     constructor( $events ?: TEvents ) {
-        //@ts-ignore
-        this.$events    = new events.Events < TEvents > ( $events || new Events );
+        super( $events );
         this.$component = new VueComponent ( this );
-
         this.methods( )
             .add( 'console' , ( value : any ) => console.log( value ) )
         ;
-    }
-
-    name( ) {
-        return this.constructor.name;
-    }
-
-    events( ) {
-        return this.$events;
     }
 
     lifeCycle( ) {

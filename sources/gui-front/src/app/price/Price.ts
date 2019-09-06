@@ -1,5 +1,5 @@
 
-import { DataGrid } from '@lia/vuetify/datagrid/Datagrid';
+import { DataGrid } from './Price-DataGrid';
 import { Layout   } from '@app/layout/Layout';
 
 export class Price extends Layout {

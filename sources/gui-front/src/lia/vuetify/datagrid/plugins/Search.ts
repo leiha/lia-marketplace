@@ -12,8 +12,12 @@ export class Search extends Plugin < Text >
                 .end( )
             .vOn( )
                 .add( 'keyup' , ( v : KeyboardEvent ) => {
-                    this.$datagrid.data( ).add( 'search' , this.$component.data( ).get( 'value' ) );
+                    this.$datagrid.search( ).set( this.value( ) );
                 } )
                 .end( )
+    }
+
+    value ( ) {
+        return this.$component.data( ).get( 'value' );
     }
 }

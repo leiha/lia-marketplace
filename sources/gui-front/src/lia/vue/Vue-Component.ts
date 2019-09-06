@@ -21,6 +21,13 @@ export class TypedObject < TType , TVueComponent > {
     }
 
     add < T extends keyof TType > ( name : T , value : TType[ T ] ) {
+        if( ! this.has( name ) ) {
+            this.set( name , value );
+        }
+        return this;
+    }
+
+    set < T extends keyof TType > ( name : T , value : TType[ T ] ) {
         this.$store[ name ] = value;
         return this;
     }
@@ -29,7 +36,7 @@ export class TypedObject < TType , TVueComponent > {
         return !! this.$store[ name ];
     }
 
-    get < T extends keyof TType > ( name : T ) {
+    get < T extends keyof TType > ( name : T ) : TType[ T ] {
         return  this.$store[ name ];
     }
 
@@ -59,19 +66,31 @@ export class Props <
     }
 
     add < T extends keyof TProps > ( name : T , value : TProps[ T ] ) {
+        if( ! this.has( name ) ) {
+            this.set( name , value );
+        }
+        return this;
+    }
+
+    has < T extends keyof TProps > ( name : T ) {
+        //@ts-ignore
+        return !! this.$store[ name ];
+    }
+
+    set < T extends keyof TProps > ( name : T , value : TProps[ T ] ) {
 
         //@ts-ignore
         if ( ! this.$builder.$data.has( name ) && ! this.$builder.$built )
-        //@ts-ignore
+            //@ts-ignore
             this.$store.push( (name == 'value' ? 'v-model' : ':'+ name ) +'="'+ 'data.'+name +'"' );
 
         //@ts-ignore
-        this.$builder.$data.add( name , value );
+        this.$builder.$data.set( name , value );
 
         return this;
     }
 
-    get < T extends keyof TProps > ( name : T ) {
+    get < T extends keyof TProps > ( name : T ) :  TProps[ T ] {
         //@ts-ignore
         return this.$builder.$data.get( name );
     }
