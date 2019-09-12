@@ -6,7 +6,7 @@ import { Accessors , DefaultComputed , DefaultMethods } from 'vue/types/options'
 export interface Slot < TScope = any > {
     name      ?: string
     scope     ?: TScope
-    vue       ?: $vue.Vue
+    vue       ?: $vue.Vue|$vue.Facade
     component ?: Constructor
     content   ?: string
 }

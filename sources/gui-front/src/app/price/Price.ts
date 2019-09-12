@@ -4,7 +4,7 @@ import { Layout   } from '@app/layout/Layout';
 
 export class Price extends Layout {
 
-    protected $datagrid = new DataGrid( );
+    protected $dataGrid = new DataGrid( );
 
     header( ) {
         super.header( );
@@ -15,7 +15,7 @@ export class Price extends Layout {
 
     body ( ) {
         super.body( );
-        this.slot( ).add( 'body' , { vue : this.$datagrid } );
+        this.slot( ).add( 'body' , { vue : this.$dataGrid } );
     }
 
     footer( ) {

@@ -18,4 +18,8 @@ export class Facade <
     build( ) {
         return this.$vue.build( );
     }
+
+    vue ( ) {
+        return this.$vue;
+    }
 }

@@ -1,20 +1,21 @@
 
-import { Plugin } from '@lia/vuetify/datagrid/plugins/Plugin';
-import { Text   } from '@lia/vuetify/form/fields/text/Text';
+import { Component } from './Component';
+import { Text      } from '@lia/vuetify/form/fields/text/Text';
 
-export class Search extends Plugin < Text >
+export class Search extends Component < Text >
 {
     prepare( ) {
         return ( new Text( ) )
             .vBind( )
                 .add( 'value'      , ''       )
                 .add( 'appendIcon' , 'search' )
-                .end( )
+            .end( )
             .vOn( )
                 .add( 'keyup' , ( v : KeyboardEvent ) => {
-                    this.$datagrid.search( ).set( this.value( ) );
+                    this.$dataGrid.search( ).set( this.value( ) );
                 } )
-                .end( )
+            .end( )
+            ;
     }
 
     value ( ) {
