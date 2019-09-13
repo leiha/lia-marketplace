@@ -1,0 +1,4 @@
+
+v-edit-dialog( :$vBind v-on="$vOn" @open="open( scope )") {{ scope.value }}
+    template( v-for="( slot , slotName ) in slots" :slot="slot.name || slotName" )
+        component( v-if="slot.component" :is="slot.component" :scope="scope" )

@@ -6,16 +6,21 @@ export class Selection extends Worker
 {
     on < T extends 'input' | 'item-selected' >
     ( name : T ,  cb : Events[ T ] ) {
-        this.vue( ).vOn( ).add( name , cb );
+        this.dataGrid( ).vue( ).vOn( ).add( name , cb );
         return this;
     }
 
     get ( ) {
-        return this.vue( ).data( ).get( 'value' );
+
+        return {
+            selected : ( ) => {
+                return this.dataGrid( ).vue( ).data( ).get( 'value' );
+            }
+        }
     }
 
     disable ( ) {
-        this.vue( ).vBind( )
+        this.dataGrid( ).vue( ).vBind( )
             .add( 'showSelect'   , false )
             .add( 'value'        , [ ]   )
             .add( 'singleSelect' , false )
@@ -25,7 +30,7 @@ export class Selection extends Worker
     }
 
     enable ( single : boolean = false ) {
-        this.vue( ).vBind( )
+        this.dataGrid( ).vue( ).vBind( )
             .add( 'showSelect'   , true   )
             .add( 'value'        , [ ]    )
             .add( 'singleSelect' , single )

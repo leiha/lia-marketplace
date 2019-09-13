@@ -7,8 +7,8 @@ export class Plugin {
 
     }
 
-    protected vue ( ) {
-        return this.$dataGrid.vue( );
+    protected dataGrid ( ) {
+        return this.$dataGrid;
     }
 
 }

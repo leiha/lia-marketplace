@@ -5,9 +5,17 @@ import { firstBy } from "thenby";
 
 export class Sort extends Worker
 {
+    private $data : {
+        sortBy   : string [ ] ,
+        sortDesc : boolean[ ]
+    } = {
+        sortBy   : [ ] ,
+        sortDesc : [ ]
+    };
+
     on < T extends 'update:sort-by' | 'update:sort-desc' >
     ( name : T ,  cb : Events[ T ] ) {
-        this.vue( ).vOn( )
+        this.dataGrid( ).vue( ).vOn( )
             .add( name , cb )
             ;
 
@@ -15,11 +23,14 @@ export class Sort extends Worker
     }
 
     get ( ) {
-
+        return {
+            sortBy   : ( ) => this.$data.sortBy ,
+            sortDesc : ( ) => this.$data.sortDesc ,
+        }
     }
 
     disable ( ) {
-        this.vue( ).vBind( )
+        this.dataGrid( ).vue( ).vBind( )
             .add( 'disableSort' , true )
             ;
 
@@ -27,22 +38,21 @@ export class Sort extends Worker
     }
 
     enable ( multiple : boolean = false ) {
-        this.vue( ).vBind( )
-            .add( 'disableSort' , false     )
-            .add( 'sortBy'      , [ ]       )
-            .add( 'multiSort'   , multiple  )
-            .add( 'sortDesc'    , [ ]       )
+        this.dataGrid( ).vue( ).vBind( )
+            .add( 'disableSort' , false )
+            .add( 'sortBy'      , this.$data.sortBy )
+            .add( 'multiSort'   , multiple    )
+            .add( 'sortDesc'    , this.$data.sortDesc )
             .add( 'customSort'  , (
-                items         : any[ ] ,
-                sortBy        : string[ ] ,
-                sortDesc      : boolean[ ],
-                locale        : string,
+                items         : any[ ]     ,
+                sortBy        : string[ ]  ,
+                sortDesc      : boolean[ ] ,
+                locale        : string     ,
                 customSorters : Record< string , Function > | undefined
             ) : any => {
-
-                console.log( this.vue().data().get( 'options' ) )
-
                 if( sortBy.length ) {
+                    this.$data.sortBy   = sortBy;
+                    this.$data.sortDesc = sortDesc;
                     let sort   = [ [ sortBy[ 0 ] , sortDesc[ 0 ] ] ];
                     let sorter = firstBy( sortBy[ 0 ] , sortDesc[ 0 ] ? -1 : 1 );
                     for( let i = 1; i < sortBy.length ; i++ ) {
@@ -58,11 +68,14 @@ export class Sort extends Worker
     }
 
     by ( field : string , way : 'desc' | 'asc' = 'asc' ) {
-        this.vue( ).vBind( )
-            .add( 'sortBy'   , field )
-            .add( 'sortDesc' , way == 'asc' )
-        ;
-
+        if( this.$data.sortBy.indexOf( field ) < 0 ){
+            this.$data.sortBy.push( field );
+            this.$data.sortDesc.push( way == 'asc' );
+            this.dataGrid( ).vue( ).vBind( )
+                .push( 'sortBy'   , this.$data.sortBy )
+                .push( 'sortDesc' , this.$data.sortDesc )
+            ;
+        }
         return this;
     }
 }

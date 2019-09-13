@@ -43,7 +43,7 @@ export class Vue <
     > extends o.$Object < TEvents >
 {
     private $lifeCycle = new events.Events < LifeCycle > ( ) ;
-    private $component : VueComponent  < TData , TSlots , TProps , TEvents , Vue < TData , TSlots , TProps , TEvents > > ;
+    protected $component : VueComponent  < TData , TSlots , TProps , TEvents , Vue < TData , TSlots , TProps , TEvents > > ;
 
     constructor( $events ?: TEvents ) {
         super( $events );
@@ -89,3 +89,4 @@ export class Vue <
 
     }
 }
+

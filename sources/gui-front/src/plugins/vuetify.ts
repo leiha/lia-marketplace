@@ -3,6 +3,7 @@ import Vue from 'vue';
 
 import fr from 'vuetify/src/locale/fr';
 
+// @ts-ignore
 import { Ripple } from 'vuetify/lib/directives'
 
 import Vuetify, {

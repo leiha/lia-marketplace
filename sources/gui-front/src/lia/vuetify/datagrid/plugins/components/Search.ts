@@ -1,8 +1,8 @@
 
-import { Component } from './Component';
-import { Text      } from '@lia/vuetify/form/fields/text/Text';
+import { ComponentPlugin } from './Component';
+import { Text            } from '@lia/vuetify/form/fields/text/Text';
 
-export class Search extends Component < Text >
+export class SearchComponent extends ComponentPlugin < Text >
 {
     prepare( ) {
         return ( new Text( ) )

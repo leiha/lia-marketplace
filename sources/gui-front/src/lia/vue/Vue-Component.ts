@@ -72,6 +72,17 @@ export class Props <
         return this;
     }
 
+    push < T extends keyof TProps > ( name : T , value : any ) {
+        //@ts-ignore
+        if( ! Array.isArray( this.$store[ name ] ) ) {
+            //@ts-ignore
+            this.$store[ name ] = [ ];
+        }
+        //@ts-ignore
+        this.$store[ name ].push( value );
+        return this;
+    }
+
     has < T extends keyof TProps > ( name : T ) {
         //@ts-ignore
         return !! this.$store[ name ];
@@ -80,7 +91,7 @@ export class Props <
     set < T extends keyof TProps > ( name : T , value : TProps[ T ] ) {
 
         //@ts-ignore
-        if ( ! this.$builder.$data.has( name ) && ! this.$builder.$built )
+        if ( ! this.$builder.$data.has( name ) )
             //@ts-ignore
             this.$store.push( (name == 'value' ? 'v-model' : ':'+ name ) +'="'+ 'data.'+name +'"' );
 

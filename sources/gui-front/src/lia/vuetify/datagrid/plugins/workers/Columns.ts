@@ -1,24 +1,65 @@
 
 import { Worker }             from './Worker';
 import { HeaderProps, Props } from "../../Datagrid-Types";
+import { CellComponent }      from "../components/slots/Cell";
+import { HeadComponent }      from "../components/slots/Head";
 
 export class Columns extends Worker
 {
     set( columns : Props[ 'headers' ] ) {
-        this.vue( ).data( ).$store['headers'] = columns;
+        this.dataGrid( ).vue( ).data( ).$store['headers'] = columns;
         return this;
     }
 
     add( column : HeaderProps ) {
+
+        let $this = this;
+        let name  = column.value;
         // @ts-ignore
-        this.vue( ).data( ).get( 'headers' ).push( column );
-        return this;
+        this.dataGrid( ).vue( ).data( ).get( 'headers' ).push( column );
+        return {
+            customize ( ) {
+
+                let $add = this;
+
+                return {
+                    head ( component : HeadComponent ) {
+                        component.attach( name );
+                        return this;
+                    } ,
+                    cell ( component : CellComponent ) {
+                        component.attach( name );
+                        return this;
+                    } ,
+                    end( ) {
+                        return $add;
+                    }
+                }
+            } ,
+            editable ( ) {
+
+                let $add = this;
+
+                return {
+                    enable ( component : CellComponent ) {
+                        component.attach( name );
+                        return this;
+                    } ,
+                    end( ) {
+                        return $add;
+                    }
+                }
+            } ,
+            end( ) {
+                return $this;
+            }
+        };
     }
 
     get( ) {
 
         let $get     = this;
-        let $columns = < HeaderProps[ ] > this.vue( ).data( ).get( 'headers' );
+        let $columns = < HeaderProps[ ] > this.dataGrid( ).vue( ).data( ).get( 'headers' );
 
         return {
             byIndex( index : number ) {

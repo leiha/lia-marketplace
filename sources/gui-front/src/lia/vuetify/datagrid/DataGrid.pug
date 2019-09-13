@@ -4,6 +4,4 @@ v-flex
     div {{ data }}
 
     v-data-table( :$vBind v-on="$vOn")
-        // Slots behavior
-        template( v-for="( slot , slotName ) in slots" :slot="slot.name || slotName" slot-scope="scope" )
-            component( v-if="slot.component" :is="slot.component" :scope="scope" )
+        include ../../vue/Vue-Slots

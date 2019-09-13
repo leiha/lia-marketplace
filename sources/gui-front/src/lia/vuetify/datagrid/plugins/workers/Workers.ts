@@ -1,12 +1,13 @@
 
-import { Plugin    } from '../Plugin';
-import { Search    } from "./Search";
-import { Sort      } from "./Sort";
-import { Selection } from "./Selection";
-import { Items     } from "./Items";
-import { Columns   } from "./Columns";
-import { Header    } from "./Header";
-import { Footer    } from "./Footer";
+import { Plugin     } from '../Plugin';
+import { Search     } from "./Search";
+import { Sort       } from "./Sort";
+import { Selection  } from "./Selection";
+import { Items      } from "./Items";
+import { Columns    } from "./Columns";
+import { Header     } from "./Header";
+import { Footer     } from "./Footer";
+import { Pagination } from "./Pagination";
 
 export class Workers extends Plugin {
 
@@ -42,6 +43,11 @@ export class Workers extends Plugin {
 
     footer = {
         $object    : ( ) => new Footer( this.$dataGrid ) ,
+        $singleton : true
+    };
+
+    pagination = {
+        $object    : ( ) => new Pagination( this.$dataGrid ) ,
         $singleton : true
     };
 

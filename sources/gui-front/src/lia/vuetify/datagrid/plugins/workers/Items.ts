@@ -7,7 +7,7 @@ export class Items extends Worker
     add( ) {
 
         let $this  = this;
-        let $items = < any[ ] > this.vue( ).data( ).get( 'items' );
+        let $items = < any[ ] > this.dataGrid( ).vue( ).data( ).get( 'items' );
 
         return {
             one( item : any ) {
@@ -27,7 +27,7 @@ export class Items extends Worker
     set( ) {
 
         let $this  = this;
-        let $items = < any[ ] > this.vue( ).data( ).get( 'items' );
+        let $items = < any[ ] > this.dataGrid( ).vue( ).data( ).get( 'items' );
 
         return {
             byIndex( index : number , item : any ) {
@@ -43,7 +43,7 @@ export class Items extends Worker
                 return this;
             },
             all( items : Props[ 'items' ] ) {
-                $this.vue( ).data( ).$store['items'] = items;
+                $this.dataGrid( ).vue( ).data( ).$store['items'] = items;
                 return this;
             },
             end( ) {
@@ -55,7 +55,7 @@ export class Items extends Worker
     get( ) {
 
         let $this  = this;
-        let $items = < any[ ] > this.vue( ).data( ).get( 'items' );
+        let $items = < any[ ] > this.dataGrid( ).vue( ).data( ).get( 'items' );
 
         return {
             byIndex( index : number ) {
@@ -76,7 +76,7 @@ export class Items extends Worker
     rm( ) {
 
         let $this  = this;
-        let $items = < any[ ] > this.vue( ).data( ).get( 'items' );
+        let $items = < any[ ] > this.dataGrid( ).vue( ).data( ).get( 'items' );
 
         return {
             byIndex( index : number , limit : number = 1 ) {
@@ -84,11 +84,11 @@ export class Items extends Worker
                 return this;
             },
             byValue( value : any , key : string = 'id' ) {
-                $this.vue( ).data( ).$store['items'] = $items.filter( ( item : any ) => item[ key ] != value );
+                $this.dataGrid( ).vue( ).data( ).$store['items'] = $items.filter( ( item : any ) => item[ key ] != value );
                 return this;
             },
             all( ) {
-                $this.vue( ).data( ).$store['items'] = [ ];
+                $this.dataGrid( ).vue( ).data( ).$store['items'] = [ ];
                 return this;
             },
             end( ) {

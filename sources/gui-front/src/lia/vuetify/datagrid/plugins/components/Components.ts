@@ -1,12 +1,11 @@
 
-import { Plugin } from '@lia/vuetify/datagrid/plugins/Plugin';
-
-import { Search } from "./Search";
+import { Plugin          } from '../Plugin';
+import { SearchComponent } from "./Search";
 
 export class Components extends Plugin {
 
     search = {
-        $object    : ( ) => new Search( this.$dataGrid ) ,
+        $object    : ( ) => new SearchComponent( this.$dataGrid ) ,
         $singleton : true
     }
 

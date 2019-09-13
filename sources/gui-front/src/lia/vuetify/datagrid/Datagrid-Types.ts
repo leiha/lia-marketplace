@@ -99,7 +99,7 @@ export interface Events {
 }
 
 export interface Data extends Props {
-
+    pageCount : number
 }
 
 export interface Slots {

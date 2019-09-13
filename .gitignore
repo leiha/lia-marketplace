@@ -5,4 +5,5 @@
 /data/mysql/
 /sources/gui-back/node_modules/
 /sources/gui-front/node_modules/
-/sources/gui-front/src/**/*.js*
+/sources/gui-front/src/**/*.js
+/sources/gui-front/src/**/*.js.*
