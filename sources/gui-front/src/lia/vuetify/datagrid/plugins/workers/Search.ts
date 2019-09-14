@@ -2,8 +2,6 @@
 import { Worker } from './Worker';
 import {Events, Props} from "../../Datagrid-Types";
 
-import * as search from '../components/Search';
-
 export class Search extends Worker
 {
     // on < T extends '' >
@@ -33,7 +31,7 @@ export class Search extends Worker
         ;
 
         this.dataGrid( ).vue( ).lifeCycle( ).subscribe( 'built' , ( ) => {
-            this.dataGrid( ).vue( ).slot( ).add( 'top' , { component : ( new search.SearchComponent( this.$dataGrid ) ).build( ) } )
+            this.dataGrid( ).vue( ).slot( ).add( 'top' , { component : ( this.components( ).get( 'search' ) ).build( ) } )
         } );
 
         return this;

@@ -1,5 +1,5 @@
 
-import { Vue } from '@lia/vue/Vue';
+import { Vue } from '@lia/vue/vue';
 
 export interface Data {
     title : string

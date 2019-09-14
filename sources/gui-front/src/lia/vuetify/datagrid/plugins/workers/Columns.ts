@@ -1,8 +1,9 @@
 
 import { Worker }             from './Worker';
 import { HeaderProps, Props } from "../../Datagrid-Types";
-import { CellComponent }      from "../components/slots/Cell";
-import { HeadComponent }      from "../components/slots/Head";
+import { CellSlot }           from "../../slots/Cell";
+import { HeadSlot }           from "../../slots/Head";
+import { EditSlot }           from "@lia/vuetify/datagrid/dialogs/edit/Edit";
 
 export class Columns extends Worker
 {
@@ -23,12 +24,12 @@ export class Columns extends Worker
                 let $add = this;
 
                 return {
-                    head ( component : HeadComponent ) {
-                        component.attach( name );
+                    head ( component : HeadSlot ) {
+                        component.owner( $this.$dataGrid.vue( ) ).attach( name );
                         return this;
                     } ,
-                    cell ( component : CellComponent ) {
-                        component.attach( name );
+                    cell ( component : CellSlot ) {
+                        component.owner( $this.$dataGrid.vue( ) ).attach( name );
                         return this;
                     } ,
                     end( ) {
@@ -41,8 +42,8 @@ export class Columns extends Worker
                 let $add = this;
 
                 return {
-                    enable ( component : CellComponent ) {
-                        component.attach( name );
+                    enable ( edit : EditSlot ) {
+                        edit.owner( $this.$dataGrid.vue( ) ).attach( name );
                         return this;
                     } ,
                     end( ) {

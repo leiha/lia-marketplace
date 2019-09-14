@@ -1,13 +1,23 @@
 
-import { Vue } from './Vue';
-import vue     from "vue";
+import vue           from "vue";
+import { VueFacade } from "./Vue-Facade";
+import { VueHolder } from "@lia/vue/Vue-Holder";
+import { VueSlot , VueSlotFacade } from "./Vue-Slot";
+import { Vue , Data , Props , Events , LifeCycle , Slots , Slot } from "./Vue-Core";
 
-export let extend = function ( components : Vue[ ] , config : any )
+export {
+    Vue     , VueFacade , VueHolder ,
+    VueSlot , VueSlotFacade , Slot , Slots ,
+    Data , Props , Events , LifeCycle ,
+}
+
+export let extend = function (components : Vue[ ] , config : any )
 {
     config.components = { };
     components.forEach( ( c ) => {
         config.components[ c.name( ) ] = c.build( );
     } );
+
     return {
         vue   ( ) { return vue.extend( config ); },
         debug ( ) {

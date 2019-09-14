@@ -1,0 +1,20 @@
+
+v-dialog( :$vBind v-on="$vOn" )
+    include ../../vue/Vue-Slots
+
+    //template( v-slot:activator="{ on }" )
+    //    v-icon {{ data.icon }}
+
+    v-card
+        v-card-title {{ data.title }}
+
+    v-card-text
+        v-container
+            v-layout
+                v-flex
+                    component( :item="item" :is="data.component" )
+
+    v-card-actions
+        v-spacer
+        v-btn( @click="close" ) Cancel
+        v-btn( @click="save( item )" ) Save

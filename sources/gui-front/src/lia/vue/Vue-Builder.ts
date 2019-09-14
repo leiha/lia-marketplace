@@ -1,22 +1,23 @@
 
-import * as $vue from './Vue';
+import * as $vue from './vue';
 import vue , { VueConstructor as Constructor } from "vue";
 import { Accessors , DefaultComputed , DefaultMethods } from 'vue/types/options';
+import { VueFacade } from "@lia/vue/Vue-Facade";
 
 export interface Slot < TScope = any > {
     name      ?: string
     scope     ?: TScope
-    vue       ?: $vue.Vue|$vue.Facade
+    vue       ?: $vue.Vue|VueFacade
     component ?: Constructor
     content   ?: string
 }
 
-export class TypedObject < TType , TVueComponent > {
+export class TypedObject < TType , TVueBuilder > {
 
     // @ts-ignore
     public $store : { [ k in keyof TType ] : TType[ k ] } = { };
 
-    constructor( protected $builder : TVueComponent ) {
+    constructor( protected $builder : TVueBuilder ) {
 
     }
 
@@ -61,7 +62,7 @@ export class Props <
 
     public $store : string[] = [ ];
 
-    constructor( protected $builder : VueComponent < TData , TSlots , TProps , TEvents , TVue > ) {
+    constructor( protected $builder : VueBuilder < TData , TSlots , TProps , TEvents , TVue > ) {
 
     }
 
@@ -111,7 +112,7 @@ export class Props <
     }
 }
 
-export class VueComponent <
+export class VueBuilder <
     TData   extends $vue.Data  ,
     TSlots  extends $vue.Slots ,
     TProps  extends $vue.Props ,
@@ -128,21 +129,21 @@ export class VueComponent <
     public    $props      : string[]                         = [ ];
     protected $mixins     : any[]                            = [ ];
     public    $vBind      : Props < TData , TSlots , TProps , TEvents , TVue >;
-    public    $vOn        : TypedObject < TEvents , VueComponent < TData , TSlots , TProps , TEvents , TVue > >;
-    public    $slots      : TypedObject < TSlots  , VueComponent < TData , TSlots , TProps , TEvents , TVue > >;
-    public    $data       : TypedObject < TData   , VueComponent < TData , TSlots , TProps , TEvents , TVue > >;
+    public    $vOn        : TypedObject < TEvents , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
+    public    $slots      : TypedObject < TSlots  , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
+    public    $data       : TypedObject < TData   , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
 
     // @ts-ignore
-    public $built      : Constructor;
+    public $built         : Constructor;
     // @ts-ignore
     public $instance      : Constructor;
 
     constructor( protected $vue : TVue )
         {
             this.$vBind = new Props < TData , TSlots , TProps , TEvents , TVue > ( this );
-            this.$data  = new TypedObject < TData   , VueComponent < TData , TSlots , TProps , TEvents , TVue > > ( this );
-            this.$vOn   = new TypedObject < TEvents , VueComponent < TData , TSlots , TProps , TEvents , TVue > > ( this );
-            this.$slots = new TypedObject < TSlots  , VueComponent < TData , TSlots , TProps , TEvents , TVue > > ( this );
+            this.$data  = new TypedObject < TData   , VueBuilder < TData , TSlots , TProps , TEvents , TVue > > ( this );
+            this.$vOn   = new TypedObject < TEvents , VueBuilder < TData , TSlots , TProps , TEvents , TVue > > ( this );
+            this.$slots = new TypedObject < TSlots  , VueBuilder < TData , TSlots , TProps , TEvents , TVue > > ( this );
         }
 
     end ( ) : TVue {

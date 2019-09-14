@@ -1,44 +1,23 @@
 
 import * as base from "@lia/vuetify/datagrid/Datagrid";
-import {Text} from "@lia/vuetify/form/fields/text/Text";
-import {VueSlot} from "@lia/vue/Vue-Slot";
 
-export class Ass extends base.CellComponent {
-    prepare ( ) : base.CellSlot {
-        let c = new base.CellSlot;
-        c.template( ).html( '<span style="color: green">{{ scope.value }}</span>' );
-        return c;
+import * as vue from "@lia/vue/vue";
+import {Ass} from "@app/price/fields/field";
+
+
+
+export class Hss extends base.HeadSlot {
+
+    constructor( ) {
+        super( );
+        this.template( )
+            .html( '<span>{{ scope.header.text }}</span>' )
+            ;
     }
 }
 
-export class Hss extends base.HeadComponent {
-    prepare ( ) : base.HeadSlot {
-        let c = new base.HeadSlot;
-        c.template( ).html( '<span>{{ scope.header.text }}</span>' );
-        return c;
-    }
-}
+export class Eee extends base.TextEditSlot {
 
-export class Eee extends base.CellComponent {
-    prepare ( ) : base.EditSlot {
-        let c = new base.EditSlot( );
-
-        let text = ( new Text( ) );
-        text
-            .vBind( )
-                .set( 'value' , '' )
-                .end( )
-            .props()
-                .push( 'scope' );
-
-        c.methods( ).add( 'open' , ( scope : any ) => {
-            text.data( ).set( 'value' , scope.value )
-        } );
-
-        c.slot( ).add( 'input' , { component : text.build( ) } );
-
-        return c;
-    }
 }
 
 export class DataGrid extends base.DataGrid {
@@ -72,12 +51,12 @@ export class DataGrid extends base.DataGrid {
                 text  : 'Editable',
                 value : 'name'
             } ).customize( )
-                //.cell( new Ass( this )  )
-                .head( new Hss( this )  )
+                .cell( new Ass( )  )
+                .head( new Hss( )  )
                 .end( )
-                .editable( )
-                    .enable( new Eee( this ) )
-                    .end( )
+                // .editable( )
+                //     .enable( new Eee( ) )
+                //     .end( )
                 .end( )
             .add( {
                 text  : 'csssc',

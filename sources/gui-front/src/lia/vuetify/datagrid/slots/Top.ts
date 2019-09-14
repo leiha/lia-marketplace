@@ -1,11 +1,11 @@
 
-import { VueSlot , Data, Events, Props, Slots } from '@lia/vue/vue';
+import { Data, Events, Props, Slots, VueSlot } from '@lia/vue/vue';
 
 export type Scope = {
 
 }
 
-export class InputSlot <
+export class TopSlot <
     TData   extends Data   = Data ,
     TSlots  extends Slots  = Slots ,
     TProps  extends Props  = Props ,
@@ -13,6 +13,6 @@ export class InputSlot <
     > extends VueSlot < Scope , TData , TSlots , TProps , TEvents >
 {
     attach( ) {
-        return super.attach( 'input' );
+        return super.attach( 'top' );
     }
 }

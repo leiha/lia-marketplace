@@ -1,5 +1,4 @@
 module.exports = {
-    runtimeCompiler: true,
     lintOnSave: false,
 
     devServer: {
@@ -46,7 +45,7 @@ module.exports = {
         config.module
             .rule( 'pug' )
             .test( /\.pug$/ )
-            .use ( 'pug-plain-loader' )
+            .use ( 'pug-loader' )
             .loader( 'html-loader' )
             .end( )
             .end( )

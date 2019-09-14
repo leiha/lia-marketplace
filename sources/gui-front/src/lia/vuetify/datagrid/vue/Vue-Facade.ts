@@ -1,6 +1,6 @@
 
-import { Vue , Events , Data , Props , Slots } from './vue';
-import { VueHolder } from "./Vue-Holder";
+import { VueHolder }                           from './Vue-Holder';
+import { Vue , Events , Data , Props , Slots } from '@lia/vue/vue';
 
 export class VueFacade <
     TData   extends Data   = Data ,
@@ -17,6 +17,4 @@ export class VueFacade <
     {
         return new Vue < TData , TSlots , TProps , TEvents > ( );
     }
-
-
 }

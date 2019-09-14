@@ -1,6 +1,6 @@
 
-import { Worker }             from './Worker';
-import { HeaderProps, Props } from "../../Datagrid-Types";
+import { Worker }              from './Worker';
+import { HeaderProps , Props } from "../../Datagrid-Types";
 
 export class Items extends Worker
 {

@@ -1,5 +1,5 @@
 
-import * as vue from '@lia/vue/Vue';
+import * as vue from '@lia/vue/vue';
 
 export interface Props extends vue.Props {
     cancelText         ?: string;

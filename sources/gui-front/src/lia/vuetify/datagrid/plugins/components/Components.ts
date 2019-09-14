@@ -5,7 +5,7 @@ import { SearchComponent } from "./Search";
 export class Components extends Plugin {
 
     search = {
-        $object    : ( ) => new SearchComponent( this.$dataGrid ) ,
+        $object    : ( ) => ( new SearchComponent( ) ).dataGrid$( this.$dataGrid ),
         $singleton : true
     }
 

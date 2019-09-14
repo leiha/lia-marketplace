@@ -1,5 +1,5 @@
 
-import { DataGrid } from '@lia/vuetify/datagrid/Datagrid';
+import { DataGrid  } from '@lia/vuetify/datagrid/Datagrid';
 
 export class Plugin {
 

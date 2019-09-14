@@ -1,4 +1,4 @@
 
 // Slots behavior
 template( v-for="( slot , slotName ) in slots" :slot="slot.name || slotName" slot-scope="scope" )
-    component( v-if="slot.component" :is="slot.component" :scope="scope" )
+    component( v-if="slot.component" :is="slot.component" :scope.sync="scope" )

@@ -1,5 +1,5 @@
 
-import { Vue } from '@lia/vue/Vue';
+import { Vue } from '@lia/vue/vue';
 import { Data , Events , Props , Slots } from '@lia/vuetify/page/Page-Types';
 
 export abstract class Page <

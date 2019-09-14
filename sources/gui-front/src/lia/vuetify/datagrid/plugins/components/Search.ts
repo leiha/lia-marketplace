@@ -1,8 +1,8 @@
 
-import { ComponentPlugin } from './Component';
-import { Text            } from '@lia/vuetify/form/fields/text/Text';
+import { VueHolder } from '../../vue/Vue-Holder';
+import { Text      } from '@lia/vuetify/form/fields/text/Text';
 
-export class SearchComponent extends ComponentPlugin < Text >
+export class SearchComponent extends VueHolder < Text >
 {
     prepare( ) {
         return ( new Text( ) )
@@ -12,13 +12,13 @@ export class SearchComponent extends ComponentPlugin < Text >
             .end( )
             .vOn( )
                 .add( 'keyup' , ( v : KeyboardEvent ) => {
-                    this.$dataGrid.search( ).set( this.value( ) );
+                    this.dataGrid( ).search( ).set( this.value( ) );
                 } )
             .end( )
             ;
     }
 
     value ( ) {
-        return this.$component.data( ).get( 'value' );
+        return this.vue( ).data( ).get( 'value' );
     }
 }

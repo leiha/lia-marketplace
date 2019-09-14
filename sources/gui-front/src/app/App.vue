@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import ioc        from '@plugins/lia.ioc'
-  import { extend } from "@lia/vue/Vue.helpers";
+  import { extend } from "@lia/vue/vue";
 
   export default extend( [ ] , {
     name: 'App',

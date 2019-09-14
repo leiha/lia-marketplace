@@ -1,5 +1,5 @@
 
-import { Vue } from '@lia/vue/Vue';
+import { Vue } from '@lia/vue/vue';
 import { Data , Props , Slots , Events } from './Text-Types';
 
 export class Text extends Vue < Data , Slots , Props , Events > {
