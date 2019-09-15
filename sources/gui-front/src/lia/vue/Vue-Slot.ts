@@ -1,6 +1,6 @@
 
 import { Vue , Events , Data , Props , Slots } from './Vue-Core';
-import {VueFacade} from "@lia/vue/Vue-Facade";
+import { VueFacade }                           from "./Vue-Facade";
 
 export class Scope {
 

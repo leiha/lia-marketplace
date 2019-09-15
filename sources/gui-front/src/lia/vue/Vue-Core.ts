@@ -1,7 +1,7 @@
 
 
-import * as events           from '../async/Events';
-import * as o                from "../$object/$Object";
+import * as events           from '../core/async/Events';
+import * as o                from "../core/$object/$Object";
 
 import { VueBuilder , Slot } from './Vue-Builder';
 

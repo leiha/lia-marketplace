@@ -1,12 +1,11 @@
 
-import * as ioc from "@lia/ioc/Ioc-Simple";
+import * as ioc from "./ioc/Ioc";
 
 import { VueFacade } from '@lia/vue/vue';
 import { Data, Props, Slots, Events } from './Datagrid-Types';
-import { Plugins  } from "./plugins/Plugins";
 import { CellSlot } from "./slots/Cell";
 import { HeadSlot } from "./slots/Head";
-import { EditSlot , TextEditSlot } from "./dialogs/edit/Edit";
+import { EditSlot , TextEditSlot } from "./actions/edit/inline/Inline";
 
 export {
     HeadSlot ,
@@ -15,15 +14,22 @@ export {
 
 export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
 
-    protected $plugins = new ioc.Ioc < Plugins > ( new Plugins( this ) );
+    protected $plugins = new ioc.Ioc( )
+        .injector$( ( plugin : any , container ) => {
+            if( plugin.injector$ ) {
+                plugin.injector$( container.injector( ) );
+                return;
+            }
+            plugin.dataGrid$( this );
+        } );
 
     constructor( ) {
         super( );
         this.vue( ).template( ).pug( require( './DataGrid.pug' ) );
         this.vue( ).vBind( )
-            .add( 'headers' , [ ] )
-            .add( 'items'   , [ ] )
-            .add( 'options' , { } )
+            .set( 'headers' , [ ] )
+            .set( 'items'   , [ ] )
+            .set( 'options' , { } )
             ;
     }
 

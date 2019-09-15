@@ -1,5 +1,5 @@
 
-import * as $vue from './vue';
+import * as $vue from './Vue-Core';
 import vue , { VueConstructor as Constructor } from "vue";
 import { Accessors , DefaultComputed , DefaultMethods } from 'vue/types/options';
 import { VueFacade } from "@lia/vue/Vue-Facade";
@@ -34,7 +34,7 @@ export class TypedObject < TType , TVueBuilder > {
     }
 
     has < T extends keyof TType > ( name : T ) {
-        return !! this.$store[ name ];
+        return this.$store.hasOwnProperty( name );
     }
 
     get < T extends keyof TType > ( name : T ) : TType[ T ] {
@@ -86,13 +86,13 @@ export class Props <
 
     has < T extends keyof TProps > ( name : T ) {
         //@ts-ignore
-        return !! this.$store[ name ];
+        return this.$builder.$data.has( name );
     }
 
     set < T extends keyof TProps > ( name : T , value : TProps[ T ] ) {
 
         //@ts-ignore
-        if ( ! this.$builder.$data.has( name ) )
+        if ( ! this.has( name ) )
             //@ts-ignore
             this.$store.push( (name == 'value' ? 'v-model' : ':'+ name ) +'="'+ 'data.'+name +'"' );
 

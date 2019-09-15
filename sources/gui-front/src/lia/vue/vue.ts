@@ -2,11 +2,12 @@
 import vue           from "vue";
 import { VueFacade } from "./Vue-Facade";
 import { VueHolder } from "@lia/vue/Vue-Holder";
+import { VueWorker } from "@lia/vue/Vue-Worker";
 import { VueSlot , VueSlotFacade } from "./Vue-Slot";
 import { Vue , Data , Props , Events , LifeCycle , Slots , Slot } from "./Vue-Core";
 
 export {
-    Vue     , VueFacade , VueHolder ,
+    Vue     , VueFacade , VueHolder , VueWorker ,
     VueSlot , VueSlotFacade , Slot , Slots ,
     Data , Props , Events , LifeCycle ,
 }

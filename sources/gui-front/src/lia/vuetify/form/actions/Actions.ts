@@ -1,6 +1,6 @@
 
 import { Vue } from "@lia/vue/vue";
-import * as o from "@lia/$object/$Object";
+import * as o from "@lia/core/$object/$Object";
 import {Action} from "@lia/vuetify/form/actions/Action";
 
 export class Events extends o.Events {
