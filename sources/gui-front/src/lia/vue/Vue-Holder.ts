@@ -3,7 +3,7 @@ import { Vue        } from './Vue-Core';
 import { VueWorker  } from './Vue-Worker';
 import { mixins     } from "@lia/core/oop/mixins";
 
-export abstract class VueHolder < TVue extends Vue >
+export abstract class VueHolder < TVue extends Vue = Vue >
 {
     protected constructor( ) {
 

@@ -31,6 +31,7 @@ export interface Events {
 }
 
 export interface Data extends Props {
+    title : string;
 
 }
 

@@ -1,15 +1,22 @@
 
 import * as ioc from "./ioc/Ioc";
 
-import { VueFacade } from '@lia/vue/vue';
+import { VueFacade }                  from '@lia/vue/vue';
 import { Data, Props, Slots, Events } from './Datagrid-Types';
-import { CellSlot } from "./slots/Cell";
-import { HeadSlot } from "./slots/Head";
-import { EditSlot , TextEditSlot } from "./actions/edit/inline/Inline";
+
+import { Cell }       from './vues/cells/Cell'
+import { CellSlot }   from "./slots/Cell";
+
+import { Header }     from './vues/headers/Header'
+import { HeaderSlot } from "./slots/Head";
+
+import { EditInline , TextEditInline } from "./actions/edit/inline/Inline";
+
 
 export {
-    HeadSlot ,
-    CellSlot , EditSlot , TextEditSlot
+    Header , Cell ,
+    HeaderSlot , CellSlot ,
+    EditInline , TextEditInline
 }
 
 export class DataGrid extends VueFacade < Data , Slots , Props , Events > {

@@ -1,6 +1,6 @@
 
-v-dialog( :$vBind v-on="$vOn" )
-    include ../../vue/Vue-Slots
+v-dialog( :$vBind v-on="$vOn" ) {{ console( data ) }}
+    //include ../../vue/Vue-Slots
 
     //template( v-slot:activator="{ on }" )
     //    v-icon {{ data.icon }}
@@ -12,9 +12,9 @@ v-dialog( :$vBind v-on="$vOn" )
         v-container
             v-layout
                 v-flex
-                    component( :item="item" :is="data.component" )
+                    component( :is="data.component" )
 
     v-card-actions
         v-spacer
-        v-btn( @click="close" ) Cancel
-        v-btn( @click="save( item )" ) Save
+        //v-btn( @click="close" ) Cancel
+        //v-btn( @click="save( item )" ) Save

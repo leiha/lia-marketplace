@@ -45,7 +45,7 @@ module.exports = {
         config.module
             .rule( 'pug' )
             .test( /\.pug$/ )
-            .use ( 'pug-loader' )
+            .use ( 'pug-plain-loader' )
             .loader( 'html-loader' )
             .end( )
             .end( )

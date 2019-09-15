@@ -3,11 +3,12 @@ import * as $vue from './Vue-Core';
 import vue , { VueConstructor as Constructor } from "vue";
 import { Accessors , DefaultComputed , DefaultMethods } from 'vue/types/options';
 import { VueFacade } from "@lia/vue/Vue-Facade";
+import {VueHolder} from "@lia/vue/Vue-Holder";
 
 export interface Slot < TScope = any > {
     name      ?: string
     scope     ?: TScope
-    vue       ?: $vue.Vue|VueFacade
+    vue       ?: $vue.Vue|VueFacade|VueHolder < $vue.Vue >
     component ?: Constructor
     content   ?: string
 }
@@ -33,6 +34,11 @@ export class TypedObject < TType , TVueBuilder > {
         return this;
     }
 
+    setAll ( values : TType ) {
+        this.$store = values;
+        return this;
+    }
+
     has < T extends keyof TType > ( name : T ) {
         return this.$store.hasOwnProperty( name );
     }
@@ -50,6 +56,11 @@ export class TypedObject < TType , TVueBuilder > {
         // @ts-ignore
         return this.$builder.end( );
     }
+}
+
+export class Slots < TType , TVueBuilder > extends TypedObject < TType , TVueBuilder > {
+
+
 }
 
 export class Props <
@@ -130,8 +141,8 @@ export class VueBuilder <
     protected $mixins     : any[]                            = [ ];
     public    $vBind      : Props < TData , TSlots , TProps , TEvents , TVue >;
     public    $vOn        : TypedObject < TEvents , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
-    public    $slots      : TypedObject < TSlots  , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
     public    $data       : TypedObject < TData   , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
+    public    $slots      : Slots       < TSlots  , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
 
     // @ts-ignore
     public $built         : Constructor;
@@ -153,10 +164,10 @@ export class VueBuilder <
     template ( ) {
         let $this = this;
         return  {
-            pug ( tpl : string ) {
+            pug ( tpl : string ) : TVue {
                 return this.html( tpl.replace( /export default "(.*)"$/ , "$1" ).replace(/\\"/g,'"') );
             } ,
-            html ( tpl : string ) {
+            html ( tpl : string ) : TVue {
                 $this.$template = tpl;
                 return $this.end( );
             },

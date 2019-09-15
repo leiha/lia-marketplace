@@ -88,7 +88,10 @@ export class Vue <
 
     slot ( ) {
         return  this.$component.$slots;
+    }
 
+    vue ( ) {
+        return this;
     }
 }
 

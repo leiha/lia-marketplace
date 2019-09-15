@@ -4,20 +4,14 @@ import * as base from "@lia/vuetify/datagrid/Datagrid";
 import * as vue from "@lia/vue/vue";
 import {Ass} from "@app/price/fields/field";
 
-
-
-export class Hss extends base.HeadSlot {
+export class Hss extends vue.VueFacade {
 
     constructor( ) {
         super( );
-        this.template( )
+        this.vue( ).template( )
             .html( '<span>{{ scope.header.text }}</span>' )
             ;
     }
-}
-
-export class Eee extends base.TextEditSlot {
-
 }
 
 export class DataGrid extends base.DataGrid {
@@ -51,12 +45,9 @@ export class DataGrid extends base.DataGrid {
                 text  : 'Editable',
                 value : 'name'
             } ).customize( )
-                .cell( new Ass( )  )
-                .head( new Hss( )  )
+                .cell( new base.Cell  ( ) )
+                .head( new base.Header( ) )
                 .end( )
-                // .editable( )
-                //     .enable( new Eee( ) )
-                //     .end( )
                 .end( )
             .add( {
                 text  : 'csssc',

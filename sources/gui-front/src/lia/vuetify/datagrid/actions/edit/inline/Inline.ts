@@ -1,17 +1,18 @@
 
+import { VueFacade }                  from "@lia/vue/Vue-Facade";
 import { Data, Events, Props, Slots } from "./Inline-Types";
-import { CellSlot }                   from "../../../Datagrid";
 import { Text }                       from "@lia/vuetify/form/fields/text/Text";
 
-export class EditSlot extends CellSlot < Data , Slots , Props , Events > {
+export class EditInline extends VueFacade < Data , Slots , Props , Events > {
 
     constructor( ) {
         super( );
-        this.template( ).pug( require( './Inline.pug' ) );
+        this.vue( )
+            .template( ).pug( require( './Inline.pug' ) );
     }
 }
 
-export class TextEditSlot extends EditSlot {
+export class TextEditInline extends EditInline {
 
     constructor( ) {
         super( );
@@ -21,7 +22,7 @@ export class TextEditSlot extends EditSlot {
                 .add( 'value' , '' )
                 .end( );
 
-        this.methods( )
+        this.vue( ).methods( )
             .add( 'open'  , ( scope : any ) => text.data( ).set( 'value' , scope.value ) )
             .add( 'save'  , ( scope : any ) => {
                 scope.item[ scope.header.value ] = text.data( ).get( 'value' );

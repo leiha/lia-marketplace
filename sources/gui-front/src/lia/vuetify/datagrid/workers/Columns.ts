@@ -1,8 +1,9 @@
 
+import { Vue , VueFacade }    from '@lia/vue/vue';
 import { HeaderProps, Props } from "../Datagrid-Types";
 import { CellSlot }           from "../slots/Cell";
-import { HeadSlot }           from "../slots/Head";
-import { DataGridChild }     from "../DataGrid-Child";
+import { HeaderSlot }         from "../slots/Head";
+import { DataGridChild }      from "../DataGrid-Child";
 
 export class Columns extends DataGridChild
 {
@@ -23,12 +24,12 @@ export class Columns extends DataGridChild
                 let $add = this;
 
                 return {
-                    head ( component : HeadSlot ) {
-                        component.owner( $this.dataGrid( ).vue( ) ).attach( name );
+                    head ( component : Vue|VueFacade ) {
+                        ( new HeaderSlot ).vue$( component.vue( ) ).owner( $this.dataGrid( ).vue( ) ).attach( name );
                         return this;
                     } ,
-                    cell ( component : CellSlot ) {
-                        component.owner( $this.dataGrid( ).vue( ) ).attach( name );
+                    cell ( component : Vue|VueFacade ) {
+                        ( new CellSlot ).vue$( component.vue( ) ).owner( $this.dataGrid( ).vue( ) ).attach( name );
                         return this;
                     } ,
                     end( ) {

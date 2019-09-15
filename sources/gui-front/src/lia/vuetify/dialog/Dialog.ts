@@ -1,14 +1,26 @@
 
 
-import { Vue }                        from "@lia/vue/vue";
-import { Data, Props, Slots, Events } from './Dialog-Types';
-import { ActivatorSlot }              from "./slots/Activator";
-import { Button }                     from "../form/buttons/Button";
+import { VueFacade }            from "@lia/vue/vue";
+import { Props, Slots, Events } from './Dialog-Types';
+import { Button }               from "../form/buttons/Button";
 
-export class Dialog extends Vue < Data , Slots , Props , Events > {
+import { Data }                 from "./Dialog-Data";
+
+export class Dialog extends VueFacade < Data , Slots , Props , Events > {
 
     constructor( ) {
         super( );
+
+        this.vue( )
+            .template( ).pug( require( './Dialog.pug' ) )
+            .data( )
+                .setAll( new Data )
+                .end( );
+
+        this.vue( )
+            .vBind()
+                .set( 'value' , true )
+                .end( );
     }
 
     // @ts-ignore

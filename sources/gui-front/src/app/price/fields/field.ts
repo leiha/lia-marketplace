@@ -1,11 +1,11 @@
 
 import * as base from "@lia/vuetify/datagrid/Datagrid";
 
-export class Ass extends base.TextEditSlot {
+export class Ass extends base.TextEditInline {
 
     constructor( ) {
         super( );
-        this.template( )
+        this.vue( ).template( )
             .pug( require( './fieldh.pug' ) )
         ;
     }
