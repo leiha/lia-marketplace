@@ -3,7 +3,7 @@ import * as $vue from './Vue-Core';
 import vue , { VueConstructor as Constructor } from "vue";
 import { Accessors , DefaultComputed , DefaultMethods } from 'vue/types/options';
 import { VueFacade } from "@lia/vue/Vue-Facade";
-import {VueHolder} from "@lia/vue/Vue-Holder";
+import { VueHolder } from "@lia/vue/Vue-Holder";
 
 export interface Slot < TScope = any > {
     name      ?: string
@@ -210,7 +210,6 @@ export class VueBuilder <
                     $this.$instance = this;
                     // @ts-ignore
                     $this.$instance.$vOn = $this.$vOn.$store;
-
                     $this.$vue.lifeCycle( ).fire( 'beforeCreate' );
                 },
                 created      ( ) { $this.$vue.lifeCycle( ).fire( 'created' );       },

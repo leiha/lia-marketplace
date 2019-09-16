@@ -6,9 +6,9 @@ export interface Scope {
 
 }
 
-export class ActivatorSlot < TVue extends Vue > extends VueSlotHolder < Scope , TVue >
+export class DefaultSlot < TVue extends Vue > extends VueSlotHolder < Scope , TVue >
 {
     attach( ) {
-        return super.attach( 'input' );
+        return super.attach( 'default' );
     }
 }

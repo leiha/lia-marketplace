@@ -1,19 +1,6 @@
 
 import * as base from "@lia/vuetify/datagrid/Datagrid";
 
-import * as vue from "@lia/vue/vue";
-import {Ass} from "@app/price/fields/field";
-
-export class Hss extends vue.VueFacade {
-
-    constructor( ) {
-        super( );
-        this.vue( ).template( )
-            .html( '<span>{{ scope.header.text }}</span>' )
-            ;
-    }
-}
-
 export class DataGrid extends base.DataGrid {
 
     constructor( ) {
@@ -33,20 +20,21 @@ export class DataGrid extends base.DataGrid {
 
         this.sort( )
             .enable( true )
-            .by    ( 'id' )
+            .by    ( 'toto' )
+            .by    ( 'name' , "desc" )
             ;
 
         this.columns( )
             .add( {
-                text  : 'sqdsqdqdssdqdq',
+                text  : 'Id',
                 value : 'id'
             } ).end( )
             .add( {
                 text  : 'Editable',
                 value : 'name'
             } ).customize( )
-                .cell( new base.Cell  ( ) )
-                .head( new base.Header( ) )
+                .cell( new base.EditInline )
+                .head( new base.Header     )
                 .end( )
                 .end( )
             .add( {

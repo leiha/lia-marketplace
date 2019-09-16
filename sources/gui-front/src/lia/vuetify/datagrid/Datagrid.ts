@@ -10,13 +10,13 @@ import { CellSlot }   from "./slots/Cell";
 import { Header }     from './vues/headers/Header'
 import { HeaderSlot } from "./slots/Head";
 
-import { EditInline , TextEditInline } from "./actions/edit/inline/Inline";
+import { EditInline } from "./vues/cells/editable/Editable";
 
 
 export {
     Header , Cell ,
     HeaderSlot , CellSlot ,
-    EditInline , TextEditInline
+    EditInline
 }
 
 export class DataGrid extends VueFacade < Data , Slots , Props , Events > {

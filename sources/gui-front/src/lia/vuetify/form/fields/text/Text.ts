@@ -6,7 +6,10 @@ export class Text extends Vue < Data , Slots , Props , Events > {
 
     constructor( ) {
         super( );
-        this.template( ).pug( require( './Text.pug' ) );
+        this.template( ).pug( require( './Text.pug' ) )
+            .vBind( )
+                .add( 'value' , '' )
+                .end( );
     }
 
     name( ) {
