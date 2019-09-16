@@ -1,5 +1,6 @@
 
-import { Vue } from '@lia/vue/Vue-Core';
+import { Vue }       from '@lia/vue/Vue-Core';
+import { VueHolder } from "@lia/vuetify/datagrid/vues/Vue-Holder";
 
 export abstract class VueWorker < TVue extends Vue >
 {
@@ -20,7 +21,8 @@ export abstract class VueWorker < TVue extends Vue >
     }
 
 
-    vue$( vue : TVue ) {
+    vue$( vue : Vue|VueHolder ) {
+        // @ts-ignore
         this.$vue = vue;
         return this;
     }

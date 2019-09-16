@@ -1,0 +1,12 @@
+
+v-tabs( :$vBind v-on="$vOn" )
+
+    include ../../vue/Vue-Slots
+
+    template( v-if="! slots.default" )
+
+        v-tab( v-for="(item, i) in data.items" :key="i" ) {{ item.title }}
+
+        v-tabs-items
+            v-tab-item( v-for="(item , i) in items" :key="i" )
+                component( :is="item.content" )

@@ -1,6 +1,7 @@
 
 import { Props }            from "../Datagrid-Types";
 import { DataGridChild }   from "../DataGrid-Child";
+import {TopSlot} from "@lia/vuetify/datagrid/slots/Top";
 
 export class Search extends DataGridChild
 {
@@ -25,15 +26,15 @@ export class Search extends DataGridChild
     }
 
     enable( ) {
-        this.dataGrid( ).vue( ).vBind( )
-            .set( 'disableFiltering' , false )
-            .set( 'search'           , '' )
-        ;
+        this.dataGrid( ).vue( )
+            .vBind( )
+                .set( 'disableFiltering' , false )
+                .set( 'search'           , '' )
+                ;
 
-        this.dataGrid( ).vue( ).lifeCycle( ).subscribe( 'built' , ( ) => {
-            this.dataGrid( ).vue( )
-                .slot( ).add( 'top' , { component : ( this.components( ).get( 'search' ) ).build( ) } )
-        } );
+        ( new TopSlot( ) ).owner( this.dataGrid( ).vue( ) ).attach( )
+            .vue$( this.components( ).get( 'search' ) )
+            ;
 
         return this;
     }
