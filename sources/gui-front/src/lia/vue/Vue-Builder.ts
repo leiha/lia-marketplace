@@ -43,7 +43,10 @@ export class TypedObject < TType , TVueBuilder > {
         return this.$store.hasOwnProperty( name );
     }
 
-    get < T extends keyof TType > ( name : T ) : TType[ T ] {
+    get < T extends keyof TType > ( name : T, def ?: TType[ T ] ) : TType[ T ] {
+        //@ts-ignore
+        this.add( name , def );
+
         return  this.$store[ name ];
     }
 
@@ -113,7 +116,9 @@ export class Props <
         return this;
     }
 
-    get < T extends keyof TProps > ( name : T ) :  TProps[ T ] {
+    get < T extends keyof TProps > ( name : T , def ?: TProps[ T ] ) :  TProps[ T ] {
+        //@ts-ignore
+        this.add( name , def );
         //@ts-ignore
         return this.$builder.$data.get( name );
     }
@@ -225,8 +230,8 @@ export class VueBuilder <
                 destroyed    ( ) { $this.$vue.lifeCycle( ).fire( 'destroyed' );     },
             });
             this.$vue.lifeCycle( ).fire( 'built' );
-            return this.$built;
         }
+        return this.$built;
     }
 
     object < TType = CallableFunction > ( prop : '$data' | '$computed' | '$methods' | '$watches' | '$components' ) {

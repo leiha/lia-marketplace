@@ -1,6 +1,19 @@
 
 import * as vue from "@lia/vue/vue";
 
+export interface Item {
+    title     : string
+    subtitle ?: string
+    click     : Function
+    icon     ?: string
+}
+
+export interface Group {
+    title    ?: string
+    disabled ?: boolean
+    items    ?: Item[ ]
+}
+
 export interface Props extends vue.Props {
     activeClass ?: string
     append ?: boolean
@@ -27,7 +40,7 @@ export interface Props extends vue.Props {
 }
 
 export interface Data extends Props {
-    items : any[ ]
+    groups : Group[ ]
 }
 
 export interface Slots {

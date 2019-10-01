@@ -12,28 +12,27 @@ export class Search extends DataGridChild
     // }
 
     get ( ) {
-        return this.dataGrid( ).vue( ).data( ).get( 'search' );
+        return this.data( ).get( 'search' );
     }
 
     set ( $search : Props[ 'search' ] ) {
-        this.dataGrid( ).vue( ).vBind( ).set( 'search' , $search );
+        this.vBind( ).set( 'search' , $search );
         return this;
     }
 
     disable( ) {
-        this.dataGrid( ).vue( ).vBind( ).set( 'disableFiltering' , true );
+        this.vBind( ).set( 'disableFiltering' , true );
         return this;
     }
 
     enable( ) {
-        this.dataGrid( ).vue( )
-            .vBind( )
-                .set( 'disableFiltering' , false )
-                .set( 'search'           , '' )
-                ;
+        this.vBind( )
+            .set( 'disableFiltering' , false )
+            .set( 'search'           , '' )
+            ;
 
-        ( new TopSlot( ) ).owner( this.dataGrid( ).vue( ) ).attach( )
-            .vue$( this.components( ).get( 'search' ) )
+        this.components( ).get( 'top' )
+            .item( this.components( ).get( 'search' ) )
             ;
 
         return this;

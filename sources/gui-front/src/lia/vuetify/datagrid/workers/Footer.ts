@@ -4,7 +4,7 @@ import { DataGridChild } from "../DataGrid-Child";
 export class Footer extends DataGridChild
 {
     enableDefault( enable : boolean = true ) {
-        this.dataGrid( ).vue( ).vBind( )
+        this.vBind( )
             .set( 'hideDefaultFooter' , ! enable )
         ;
     }

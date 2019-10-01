@@ -49,9 +49,11 @@ export interface Props extends vue.Props {
 }
 
 export interface Events {
+    click : Function
 }
 
 export interface Data extends Props {
+    iconName : string
 }
 
 export interface Slots {

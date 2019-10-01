@@ -1,33 +1,31 @@
 
-import * as ioc from "./ioc/Ioc";
-
+import * as ioc                       from "./ioc/Ioc";
+import * as iocBase                   from '@lia/core/ioc/Ioc-Simple';
 import { VueFacade }                  from '@lia/vue/vue';
+import { DataGridSlot               } from "./DataGrid-Slot";
+import { DataGridChild              } from "./DataGrid-Child";
 import { Data, Props, Slots, Events } from './Datagrid-Types';
-
-import { Cell }       from './vues/cells/Cell'
-import { CellSlot }   from "./slots/Cell";
-
-import { Header }     from './vues/headers/Header'
-import { HeaderSlot } from "./slots/Head";
-
-import { EditInline } from "./vues/cells/editable/Editable";
-
-
-export {
-    Header , Cell ,
-    HeaderSlot , CellSlot ,
-    EditInline
-}
+import { VueHolder                  } from "./vues/Vue-Holder";
 
 export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
 
     protected $plugins = new ioc.Ioc( )
         .injector$( ( plugin : any , container ) => {
-            if( plugin.injector$ ) {
+
+            if( plugin instanceof iocBase.Ioc ) {
                 plugin.injector$( container.injector( ) );
                 return;
             }
-            plugin.dataGrid$( this );
+
+            if( plugin instanceof DataGridChild || VueHolder ) {
+                plugin.dataGrid$( this );
+            }
+
+            if( plugin instanceof DataGridSlot ) {
+                // @ts-ignore
+                plugin.owner( this.vue( ) ).attach( );
+            }
+
         } );
 
     constructor( ) {
@@ -40,8 +38,16 @@ export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
             ;
     }
 
+    build( )  {
+        return super.build( );
+    }
+
     plugins( ) {
         return this.$plugins;
+    }
+
+    menu( ) {
+        return this.$plugins.get( 'workers' ).get( 'menu' );
     }
 
     header( ) {

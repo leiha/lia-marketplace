@@ -9,18 +9,18 @@ import { Ripple } from 'vuetify/lib/directives'
 import Vuetify, {
     VAppBar , VToolbarTitle , VContainer , VLayout, VFlex,
     VCard, VCardTitle, VCardText, VCardActions,
-    VRow ,
+    VRow , VCol , VSpacer,
     VEditDialog , VSnackbar ,
     VForm, VBtn, VTextField, VCheckbox, VSelect, VSwitch, VSimpleCheckbox ,
     VMenu,
     VList, VListItem , VListItemIcon , VListItemTitle , VListItemSubtitle , VListItemContent ,
+    VSubheader ,
     VTabs, VTab, VTabItem,
-    VSpacer,
     VDialog, VTooltip ,
     VDataTable ,
     VIcon ,
     VPagination ,
-    VProgressLinear,
+    VProgressLinear , VDivider
 } from 'vuetify/lib';
 
 Vue.use( Vuetify , {
@@ -37,19 +37,19 @@ Vue.use( Vuetify , {
     components : {
         VAppBar , VToolbarTitle , VContainer , VLayout , VFlex ,
         VCard , VCardTitle , VCardText , VCardActions ,
-        VRow ,
+        VRow , VCol , VSpacer ,
         VEditDialog , VSnackbar ,
         VForm , VBtn , VTextField , VCheckbox , VSelect , VSwitch , VSimpleCheckbox ,
         VMenu ,
         VList , VListItem , VListItemIcon , VListItemTitle , VListItemSubtitle , VListItemContent ,
+        VSubheader ,
         VTabs , VTab , VTabItem ,
-        VSpacer ,
         VDialog ,
         VDataTable ,
         VTooltip ,
         VIcon ,
         VPagination ,
-        VProgressLinear,
+        VProgressLinear , VDivider
     }
 } );
 

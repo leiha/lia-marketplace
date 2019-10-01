@@ -12,7 +12,7 @@ export abstract class VueWorker < TVue extends Vue >
         return new Vue( );
     }
 
-    vue( ) {
+    vue( ) : TVue {
 
         if( ! this.$vue ) {
             this.$vue = this.prepare( );

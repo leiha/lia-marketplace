@@ -7,11 +7,17 @@ import { Columns    } from "../workers/Columns";
 import { Header     } from "../workers/Header";
 import { Footer     } from "../workers/Footer";
 import { Pagination } from "../workers/Pagination";
+import {Menu} from "@lia/vuetify/datagrid/workers/Menu";
 
 export class IocWorkers {
 
     search = {
         $object    : ( ) => new Search( ) ,
+        $singleton : true
+    };
+
+    menu = {
+        $object    : ( ) => new Menu( ) ,
         $singleton : true
     };
 

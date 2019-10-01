@@ -11,6 +11,6 @@ export class Button < TData extends Data = Data >
 {
     constructor( ) {
         super( );
-        this.template( ).pug( 'v-btn( :$vBind v-on="$vOn" )' )
+        this.template( ).pug( require( './Button.pug' ) )
     }
 }

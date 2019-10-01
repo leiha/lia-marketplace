@@ -11,7 +11,7 @@ export class Pagination extends DataGridChild
     }
 
     disable( ) {
-        this.dataGrid( ).vue( ).vBind( ).add( 'disablePagination' , true );
+        this.vBind( ).add( 'disablePagination' , true );
         return this;
     }
 
@@ -19,13 +19,13 @@ export class Pagination extends DataGridChild
 
         return {
             currentPage : ( ) => {
-                return this.dataGrid( ).vue( ).data( ).get( 'page' );
+                return this.data( ).get( 'page' );
             } ,
             itemsPerPage : ( ) => {
-                return this.dataGrid( ).vue( ).data( ).get( 'itemsPerPage' );
+                return this.data( ).get( 'itemsPerPage' );
             } ,
             totalPages : ( ) => {
-                return this.dataGrid( ).vue( ).data( ).get( 'pageCount' );
+                return this.data( ).get( 'pageCount' );
             }
         }
     }
@@ -36,15 +36,15 @@ export class Pagination extends DataGridChild
 
         return {
             currentPage ( page : number ) {
-                $this.dataGrid( ).vue( ).data( ).set( 'page' , page );
+                $this.data( ).set( 'page' , page );
                 return this;
             } ,
             itemsPerPage ( number : number ) {
-                $this.dataGrid( ).vue( ).data( ).set( 'itemsPerPage' , number );
+                $this.data( ).set( 'itemsPerPage' , number );
                 return this;
             } ,
             totalPages ( number : number ) {
-                $this.dataGrid( ).vue( ).data( ).set( 'pageCount' , number );
+                $this.data( ).set( 'pageCount' , number );
                 return this;
             } ,
             end ( ) {

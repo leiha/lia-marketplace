@@ -8,7 +8,7 @@ import { DataGridChild }      from "../DataGrid-Child";
 export class Columns extends DataGridChild
 {
     set( columns : Props[ 'headers' ] ) {
-        this.dataGrid( ).vue( ).data( ).$store['headers'] = columns;
+        this.data( ).$store['headers'] = columns;
         return this;
     }
 
@@ -17,7 +17,7 @@ export class Columns extends DataGridChild
         let $this = this;
         let name  = column.value;
         // @ts-ignore
-        this.dataGrid( ).vue( ).data( ).get( 'headers' ).push( column );
+        this.data( ).get( 'headers' ).push( column );
         return {
             customize ( ) {
 
@@ -46,7 +46,7 @@ export class Columns extends DataGridChild
     get( ) {
 
         let $get     = this;
-        let $columns = < HeaderProps[ ] > this.dataGrid( ).vue( ).data( ).get( 'headers' );
+        let $columns = < HeaderProps[ ] > this.data( ).get( 'headers' );
 
         return {
             byIndex( index : number ) {

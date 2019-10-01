@@ -1,10 +1,14 @@
 
-import * as base from "@lia/vuetify/datagrid/Datagrid";
+import * as base from "@lia/vuetify/datagrid/DataGrid";
 
 export class DataGrid extends base.DataGrid {
 
     constructor( ) {
         super( );
+
+        this.menu( )
+            .enable( )
+            ;
 
         this.selection( )
             .enable( )

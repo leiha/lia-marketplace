@@ -14,7 +14,7 @@ export class Selection extends DataGridChild
 
         return {
             selected : ( ) => {
-                return this.dataGrid( ).vue( ).data( ).get( 'value' );
+                return this.data( ).get( 'value' );
             }
         }
     }
@@ -29,12 +29,20 @@ export class Selection extends DataGridChild
         return this;
     }
 
-    enable ( single : boolean = false ) {
+    enable ( single : boolean = false )
+    {
         this.dataGrid( ).vue( ).vBind( )
             .set( 'showSelect'   , true   )
             .set( 'value'        , [ ]    )
             .set( 'singleSelect' , single )
         ;
+
+        this.on( 'input' , ( item ) => {
+            this.components().get( 'menu' )
+                // @ts-ignore
+                .enableGroup( 'selection' ,  this.get( ).selected( ).length > 0 )
+                ;
+        } );
 
         return this;
     }

@@ -30,7 +30,7 @@ export class Sort extends DataGridChild
     }
 
     disable ( ) {
-        this.dataGrid( ).vue( ).vBind( )
+        this.vBind(  )
             .set( 'disableSort' , true )
             ;
 
@@ -38,7 +38,7 @@ export class Sort extends DataGridChild
     }
 
     enable ( multiple : boolean = false ) {
-        this.dataGrid( ).vue( ).vBind( )
+        this.vBind(  )
             .set( 'disableSort' , false )
             .set( 'sortBy'      , this.$data.sortBy )
             .set( 'multiSort'   , multiple    )
@@ -71,7 +71,7 @@ export class Sort extends DataGridChild
         if( this.$data.sortBy.indexOf( field ) < 0 ){
             this.$data.sortBy.push( field );
             this.$data.sortDesc.push( way == 'asc' );
-            this.dataGrid( ).vue( ).vBind( )
+            this.vBind(  )
                 .push( 'sortBy'   , this.$data.sortBy )
                 .push( 'sortDesc' , this.$data.sortDesc )
             ;

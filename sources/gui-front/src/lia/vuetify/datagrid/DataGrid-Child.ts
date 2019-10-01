@@ -1,5 +1,5 @@
 
-import { DataGrid } from "./Datagrid";
+import { DataGrid } from "./DataGrid-Grid";
 
 export abstract class DataGridChild < TDataGrid extends DataGrid = DataGrid >
 {
@@ -17,6 +17,14 @@ export abstract class DataGridChild < TDataGrid extends DataGrid = DataGrid >
 
     end( ) {
         return this.$dataGrid;
+    }
+
+    vBind( ) {
+        return this.dataGrid( ).vue( ).vBind( );
+    }
+
+    data( ) {
+        return this.dataGrid( ).vue( ).data( );
     }
 
     workers( ) {
