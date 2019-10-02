@@ -4,6 +4,7 @@ import vue , { VueConstructor as Constructor } from "vue";
 import { Accessors , DefaultComputed , DefaultMethods } from 'vue/types/options';
 import { VueFacade } from "@lia/vue/Vue-Facade";
 import { VueHolder } from "@lia/vue/Vue-Holder";
+import {Directive} from "@lia/vue/directives/Directive";
 
 export interface Slot < TScope = any > {
     name      ?: string
@@ -144,6 +145,7 @@ export class VueBuilder <
     public    $watches    : { [ k : string ] : Function  }   = { };
     public    $props      : string[]                         = [ ];
     protected $mixins     : any[]                            = [ ];
+    public    $directives : { [ k : string ] : Directive }   = { };
     public    $vBind      : Props < TData , TSlots , TProps , TEvents , TVue >;
     public    $vOn        : TypedObject < TEvents , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
     public    $data       : TypedObject < TData   , VueBuilder < TData , TSlots , TProps , TEvents , TVue > >;
@@ -177,9 +179,22 @@ export class VueBuilder <
                 return $this.end( );
             },
             render( ) {
-                return $this.$template.replace( /:\$vBind/ , $this.$vBind.$store.join( ' ' ) );
+                let directives = Object.keys( $this.$directives );
+                return $this.$template.replace( /:\$vBind/ ,
+                    $this.$vBind.$store.join( ' ' )
+                        + ( directives.length ? ' v-'+  directives.join( ' v-' ) : '' ) )
+                        ;
             }
         };
+    }
+
+    directives( ) {
+
+        let d : { [ k : string ] : any } = { };
+        for( let n in this.$directives ) {
+            d[ n ] = this.$directives[ n ].create( );
+        }
+        return d;
     }
 
     data ( )
@@ -204,6 +219,7 @@ export class VueBuilder <
                 methods    : this.$methods,
                 mixins     : this.$mixins,
                 props      : this.$props,
+                directives : this.directives( ),
                 // watches    : this.$watches,
                 data ( ) {
                     // Vuex use computed getter and setter
@@ -234,7 +250,7 @@ export class VueBuilder <
         return this.$built;
     }
 
-    object < TType = CallableFunction > ( prop : '$data' | '$computed' | '$methods' | '$watches' | '$components' ) {
+    object < TType = CallableFunction > ( prop : '$directives' | '$data' | '$computed' | '$methods' | '$watches' | '$components' ) {
         let $builder = this;
         return {
             add ( name : string , cb : TType ) {

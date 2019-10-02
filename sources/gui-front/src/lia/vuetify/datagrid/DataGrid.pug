@@ -1,4 +1,21 @@
 
-v-flex
+v-flex {{ data }}
+
     v-data-table( :$vBind v-on="$vOn" )
         include ../../vue/Vue-Slots
+
+        template( slot="header" slot-scope="props" )
+            thead
+                tr( id='tableheaders')
+                    th( class="unmovable" )
+                        v-checkbox(
+                            hide-details @click.native="selectAll( props )"
+                            v-model="data.selection.all"
+                            :indeterminate="data.selection.indeterminate"
+                            )
+
+                    template( v-for="header in data.headers" )
+                        th( :key="header.text" @click="applySort( header )"
+                            :class="applyHeaderClasses( header )"
+                         ) {{ header.text }}
+                            v-icon {{ applySortIcon( header ) }}

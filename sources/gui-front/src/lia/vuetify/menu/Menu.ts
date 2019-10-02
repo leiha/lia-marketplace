@@ -18,10 +18,6 @@ export class Menu extends Vue < Data , Slots , Props , Events >
             .template( ).pug( require( './Menu.pug' ) )
             .vBind( )
                 .add( 'value'   , false )
-                // .add( 'offsetY' , true )
-                // .add( 'bottom'  , true )
-                // .add( 'left'    , true )
-                .add( 'right'    , true )
                 .end( );
 
         this.$activator

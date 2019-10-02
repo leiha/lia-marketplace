@@ -40,9 +40,9 @@ export class Sort extends DataGridChild
     enable ( multiple : boolean = false ) {
         this.vBind(  )
             .set( 'disableSort' , false )
-            .set( 'sortBy'      , this.$data.sortBy )
+            .set( 'sortBy'      , [ ] )
             .set( 'multiSort'   , multiple    )
-            .set( 'sortDesc'    , this.$data.sortDesc )
+            .set( 'sortDesc'    , [ ] )
             .set( 'customSort'  , (
                 items         : any[ ]     ,
                 sortBy        : string[ ]  ,
@@ -64,18 +64,40 @@ export class Sort extends DataGridChild
                 return items;
             } );
 
+        this.dataGrid( ).vue( ).methods( ).add( 'applySort' , ( header ) => {
+            let index     = this.get( ).sortBy( ).indexOf( header.value );
+            let desc      = this.get( ).sortDesc( );
+            let direction =  index > -1 ? ( ! desc[ index ] ) : false;
+            this.by( header.value , direction ? 'desc' : 'asc' );
+        } );
+
+        this.dataGrid( ).vue( ).methods( ).add( 'applySortIcon' , ( header ) => {
+            let index     = this.get( ).sortBy( ).indexOf( header.value );
+            let desc      = this.get( ).sortDesc( );
+            let direction =  index > -1 ? ( ! desc[ index ] ) : false;
+            return index > -1 ? desc[ index ] ? 'arrow_drop_down' : 'arrow_drop_up' : '' ;
+        } );
+
         return this;
     }
 
     by ( field : string , way : 'desc' | 'asc' = 'asc' ) {
-        if( this.$data.sortBy.indexOf( field ) < 0 ){
-            this.$data.sortBy.push( field );
-            this.$data.sortDesc.push( way == 'asc' );
-            this.vBind(  )
-                .push( 'sortBy'   , this.$data.sortBy )
-                .push( 'sortDesc' , this.$data.sortDesc )
-            ;
+
+        let index = this.$data.sortBy.indexOf( field );
+
+        if( index > -1 ) {
+            this.$data.sortDesc[ index ] = way == 'desc' ;
         }
+        else {
+            this.$data.sortBy.push( field );
+            this.$data.sortDesc.push( way == 'desc' );
+        }
+
+        this.data(  )
+            .set( 'sortBy'   , this.$data.sortBy )
+            .set( 'sortDesc' , this.$data.sortDesc )
+        ;
+
         return this;
     }
 }

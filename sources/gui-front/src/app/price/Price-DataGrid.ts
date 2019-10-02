@@ -22,6 +22,10 @@ export class DataGrid extends base.DataGrid {
             .enable( )
             ;
 
+        this.header( )
+            .enableDefault( false )
+            ;
+
         this.sort( )
             .enable( true )
             .by    ( 'toto' )
@@ -29,6 +33,7 @@ export class DataGrid extends base.DataGrid {
             ;
 
         this.columns( )
+            .enableReOrder( )
             .add( {
                 text  : 'Id',
                 value : 'id'

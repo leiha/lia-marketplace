@@ -4,6 +4,7 @@ import * as events           from '../core/async/Events';
 import * as o                from "../core/$object/$Object";
 
 import { VueBuilder , Slot } from './Vue-Builder';
+import {Directive} from "@lia/vue/directives/Directive";
 
 export { Slot }
 
@@ -73,10 +74,13 @@ export class Vue <
     components < TType = CallableFunction > ( ) { return this.$component.object < TType > ( '$components' ); }
     props      < TType = CallableFunction > ( ) { return this.$component.array  < TType > ( '$props'      ); }
     mixins     < TType = CallableFunction > ( ) { return this.$component.array  < TType > ( '$mixins'     ); }
+    directives < TType = Directive        > ( ) { return this.$component.object < TType > ( '$directives'); }
 
     vBind( ) {
         return this.$component.$vBind;
     }
+
+
 
     vOn( ) {
         return this.$component.$vOn;

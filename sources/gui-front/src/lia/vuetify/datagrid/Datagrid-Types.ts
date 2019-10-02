@@ -96,10 +96,16 @@ export interface Events {
     'update:page'      : ( v : number ) => void
     'update:sort-by'   : ( v : string | string[] ) => void
     'update:sort-desc' : ( v : boolean | boolean[] ) => void
+
+    moved              : ( e : any ) => void
 }
 
 export interface Data extends Props {
     pageCount : number
+    selection : {
+        all : boolean
+        indeterminate : boolean
+    }
 }
 
 export interface Slots {

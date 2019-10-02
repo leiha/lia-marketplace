@@ -4,11 +4,36 @@ import { HeaderProps, Props } from "../Datagrid-Types";
 import { CellSlot }           from "../slots/Cell";
 import { HeaderSlot }         from "../slots/Head";
 import { DataGridChild }      from "../DataGrid-Child";
+import {Draggable} from "@lia/vue/directives/Draggable";
 
 export class Columns extends DataGridChild
 {
     set( columns : Props[ 'headers' ] ) {
         this.data( ).$store['headers'] = columns;
+        return this;
+    }
+
+    enableReOrder( ) {
+
+        this.dataGrid( ).vue( )
+            .directives( )
+            .add( 'sortable-table' , ( new Draggable( ) )
+                .inside( ( el : any , binding : any , vnode : any ) => {
+                    return ( el.querySelector('thead tr') );
+                } )
+            );
+
+        this.dataGrid( ).vue( )
+            .vOn().add( 'moved' , ( e : any ) => {
+
+                let h = this.dataGrid( ).vue( ).data( ).get( 'headers' );
+
+                // @ts-ignore
+                let d = h.splice( e.oldIndex - 1  , 1 );
+                // @ts-ignore
+                h.splice( e.newIndex - 1  , 0 , d[ 0 ] )
+            } );
+
         return this;
     }
 

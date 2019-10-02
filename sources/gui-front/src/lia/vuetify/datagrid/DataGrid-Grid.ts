@@ -34,7 +34,6 @@ export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
         this.vue( ).vBind( )
             .set( 'headers' , [ ] )
             .set( 'items'   , [ ] )
-            .set( 'options' , { } )
             ;
     }
 

@@ -7,9 +7,6 @@ export class List extends Vue < Data , Slots , Props , Events >
     constructor( ) {
         super( );
         this.template( ).pug( require( './List.pug' ) )
-            // .vBind( )
-            // .add( 'disabled' , false )
-            // .end( )
             .data( )
                 .set( 'groups' , [ ] )
             .end( )
@@ -38,6 +35,14 @@ export class List extends Vue < Data , Slots , Props , Events >
                 return $this;
             }
         }
+    }
 
+    enableGroup ( id : string , enable : boolean = true )
+    {
+        this.groups( ).forEach( ( group : Group ) => {
+            if( group.title == id ) {
+                group.disabled = ! enable;
+            }
+        } );
     }
 }
