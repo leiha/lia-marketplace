@@ -39,33 +39,37 @@ export class Columns extends DataGridChild
 
     add( column : HeaderProps ) {
 
-        let $this = this;
-        let name  = column.value;
-        // @ts-ignore
-        this.data( ).get( 'headers' ).push( column );
-        return {
-            customize ( ) {
+        let col = this.dataGrid( ).plugins( ).get( 'column' )
+            .config$( column )
+            ;
 
-                let $add = this;
+       this.data( ).get( 'columns' ).push( col );
 
-                return {
-                    head ( component : Vue|VueFacade ) {
-                        ( new HeaderSlot ).vue$( component.vue( ) ).owner( $this.dataGrid( ).vue( ) ).attach( name );
-                        return this;
-                    } ,
-                    cell ( component : Vue|VueFacade ) {
-                        ( new CellSlot ).vue$( component.vue( ) ).owner( $this.dataGrid( ).vue( ) ).attach( name );
-                        return this;
-                    } ,
-                    end( ) {
-                        return $add;
-                    }
-                }
-            } ,
-            end( ) {
-                return $this;
-            }
-        };
+       return col;
+
+        // return {
+        //     customize ( ) {
+        //
+        //         let $add = this;
+        //
+        //         return {
+        //             head ( component : Vue|VueFacade ) {
+        //                 // ( new HeaderSlot ).vue$( component.vue( ) ).owner( $this.dataGrid( ).vue( ) ).attach( name );
+        //                 return this;
+        //             } ,
+        //             cell ( component : Vue|VueFacade ) {
+        //                 ( new CellSlot ).vue$( component.vue( ) ).owner( $this.dataGrid( ).vue( ) ).attach( name );
+        //                 return this;
+        //             } ,
+        //             end( ) {
+        //                 return $add;
+        //             }
+        //         }
+        //     } ,
+        //     end( ) {
+        //         return $this;
+        //     }
+        // };
     }
 
     get( ) {

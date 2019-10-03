@@ -15,8 +15,6 @@ export class Top extends TopSlot < Vue < Data , Slots , Props >  >
     }
 
     item( item : any ) {
-        console.log( item );
-
         this.vue( ).data( ).get( 'items' ).push( { component : item } );
         return this;
     }

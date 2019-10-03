@@ -212,7 +212,7 @@ export class VueBuilder <
         if( ! this.$built ) {
             let $this = this;
             this.$built = vue.extend( {
-                name       : this.$vue.name( ),
+                name       : this.$name,
                 template   : this.template( ).render( ) ,
                 components : this.$components,
                 computed   : this.$computed,

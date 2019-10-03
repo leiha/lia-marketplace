@@ -16,10 +16,6 @@ export class $Object <
         this.$events = new events.Events < TEvents > ( $events || new Events );
     }
 
-    name( ) {
-        return this.constructor.name;
-    }
-
     events( ) {
         return this.$events;
     }

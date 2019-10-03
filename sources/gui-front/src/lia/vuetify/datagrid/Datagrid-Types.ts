@@ -1,8 +1,9 @@
 
 import * as vue from '@lia/vue/vue';
+import {Column} from "@lia/vuetify/datagrid/columns/Column";
 
 export interface HeaderProps {
-    text      : string;
+    text     ?: string;
     value     : string;
     align    ?: 'start' | 'center' | 'end';
     sortable ?: boolean;
@@ -11,6 +12,10 @@ export interface HeaderProps {
     width    ?: string | number;
     filter   ?: (value: any, search: string, item: any) => boolean;
     sort     ?: (a: any, b: any) => number;
+    classes  ?: string[ ]
+    icons    ?: {
+        sort : string
+    }
 }
 
 export interface Props extends vue.Props {
@@ -101,6 +106,7 @@ export interface Events {
 }
 
 export interface Data extends Props {
+    columns   : Column[ ]
     pageCount : number
     selection : {
         all : boolean

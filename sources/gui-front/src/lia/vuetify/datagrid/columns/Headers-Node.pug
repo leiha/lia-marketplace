@@ -1,0 +1,6 @@
+
+thead
+    tr
+        template( v-for="header in scope.props.headers" )
+
+            component( :is="component( header.value ).build( )" )

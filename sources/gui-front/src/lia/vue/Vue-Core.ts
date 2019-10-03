@@ -50,7 +50,8 @@ export class Vue <
 
     constructor( $events ?: TEvents ) {
         super( $events );
-        this.$component = new VueBuilder ( this );
+        this.$component       = new VueBuilder ( this );
+        this.$component.$name = this.constructor.name;
         this.methods( )
             .add( 'console' , ( value : any ) => console.log( value ) )
         ;
@@ -68,6 +69,19 @@ export class Vue <
         return this.$component.template( );
     }
 
+    name( ) {
+        return this.$component.$name;
+    }
+
+    name$( name : string ) {
+        this.$component.$name = name;
+        return this;
+    }
+
+    isBuilt( ) {
+        return this.$component.$built ? true : false ;
+    }
+
     computed   < TType = CallableFunction > ( ) { return this.$component.object < TType > ( '$computed'   ); }
     methods    < TType = CallableFunction > ( ) { return this.$component.object < TType > ( '$methods'    ); }
     watches    < TType = CallableFunction > ( ) { return this.$component.object < TType > ( '$watches'    ); }
@@ -79,8 +93,6 @@ export class Vue <
     vBind( ) {
         return this.$component.$vBind;
     }
-
-
 
     vOn( ) {
         return this.$component.$vOn;

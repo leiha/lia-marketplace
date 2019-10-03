@@ -3,8 +3,10 @@ import { DataGrid } from "./DataGrid-Grid";
 
 export abstract class DataGridChild < TDataGrid extends DataGrid = DataGrid >
 {
-    // @ts-ignore
-    protected $dataGrid : TDataGrid;
+    /**
+     * @private
+     // @ts-ignore */
+    $dataGrid : TDataGrid;
 
     dataGrid( ) {
         return this.$dataGrid;
@@ -28,11 +30,11 @@ export abstract class DataGridChild < TDataGrid extends DataGrid = DataGrid >
     }
 
     workers( ) {
-        return this.$dataGrid.plugins( ).get( 'workers' );
+        return this.dataGrid( ).plugins( ).get( 'workers' );
     }
 
     components( ) {
-        return this.$dataGrid.plugins( ).get( 'components' );
+        return this.dataGrid( ).plugins( ).get( 'components' );
     }
     
 }

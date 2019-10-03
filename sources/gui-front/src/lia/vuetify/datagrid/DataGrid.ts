@@ -4,7 +4,7 @@ import { DataGridChild } from "./DataGrid-Child";
 import { DataGridSlot  } from "./DataGrid-Slot";
 
 import { Header        } from './vues/headers/Header'
-import { HeaderSlot    } from "./slots/Head";
+import { HeaderSlot    } from "./slots/Header";
 
 import { VueFacade     } from "./vues/Vue-Facade";
 import { VueHolder     } from "./vues/Vue-Holder";

@@ -1,7 +1,8 @@
 
 import { firstBy }          from "thenby";
 import { DataGridChild }   from "../DataGrid-Child";
-import { Events  }          from "../Datagrid-Types";
+import {Events, HeaderProps} from "../Datagrid-Types";
+import {Column} from "@lia/vuetify/datagrid/columns/Column";
 
 export class Sort extends DataGridChild
 {
@@ -62,21 +63,32 @@ export class Sort extends DataGridChild
                     return items.sort( sorter );
                 }
                 return items;
+            } )
+            .end( );
+
+
+        this.dataGrid().columns( ).worker( ).get( ).all( )
+            .forEach( ( column : Column ) => {
+                column.header( ).$actions.click.push(
+                    ( header : HeaderProps ) => {
+                        let index     = this.get( ).sortBy( ).indexOf( header.value );
+                        let desc      = this.get( ).sortDesc( );
+                        let direction =  index > -1 ? ( ! desc[ index ] ) : false;
+                        this.by( header.value , direction ? 'desc' : 'asc' );
+                    } ,
+                    ( header : HeaderProps ) => {
+                        let index     = this.get( ).sortBy( ).indexOf( header.value );
+                        let desc      = this.get( ).sortDesc( );
+                        column
+                            .classes( )
+                                .add( 'sortable' )
+                                .end( )
+                            .icons( )
+                                .add( 'sort' , ( index > -1 ? desc[ index ] ? 'arrow_drop_down' : 'arrow_drop_up' : '' ) )
+                                .end( )
+                                ;
+                    } )
             } );
-
-        this.dataGrid( ).vue( ).methods( ).add( 'applySort' , ( header ) => {
-            let index     = this.get( ).sortBy( ).indexOf( header.value );
-            let desc      = this.get( ).sortDesc( );
-            let direction =  index > -1 ? ( ! desc[ index ] ) : false;
-            this.by( header.value , direction ? 'desc' : 'asc' );
-        } );
-
-        this.dataGrid( ).vue( ).methods( ).add( 'applySortIcon' , ( header ) => {
-            let index     = this.get( ).sortBy( ).indexOf( header.value );
-            let desc      = this.get( ).sortDesc( );
-            let direction =  index > -1 ? ( ! desc[ index ] ) : false;
-            return index > -1 ? desc[ index ] ? 'arrow_drop_down' : 'arrow_drop_up' : '' ;
-        } );
 
         return this;
     }

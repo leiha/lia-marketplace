@@ -77,8 +77,8 @@ export class Ioc < TServices extends IocServicesType < TServices > >
         }
         this.$injector( o , this );
 
-        if( o.__init ) {
-            o.__init( );
+        if( o.onLoaded ) {
+            o.onLoaded( );
         }
 
         return o;

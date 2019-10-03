@@ -6,20 +6,35 @@ export class DataGrid extends base.DataGrid {
     constructor( ) {
         super( );
 
+        this.columns( )
+        //.enableReOrder( )
+
+            .column( 'data1' )
+            .end( )
+
+            .column( 'id' )
+            .end( )
+
+            .column( 'editable' )
+            // .header( ).vNode$( new base.Header     ).end( )
+            // .cell  ( ).vNode$( new base.EditInline ).end( )
+            .end( )
+        ;
+
         this.menu( )
-            .enable( )
+            .disable( )
             ;
 
         this.selection( )
-            .enable( )
+            .disable( )
             ;
 
         this.search( )
-            .enable( )
+            .disable( )
             ;
 
         this.pagination( )
-            .enable( )
+            .disable( )
             ;
 
         this.header( )
@@ -28,41 +43,23 @@ export class DataGrid extends base.DataGrid {
 
         this.sort( )
             .enable( true )
-            .by    ( 'toto' )
-            .by    ( 'name' , "desc" )
+            .by    ( 'data1' )
+            .by    ( 'editable' , "desc" )
             ;
 
-        this.columns( )
-            .enableReOrder( )
-            .add( {
-                text  : 'Id',
-                value : 'id'
-            } ).end( )
-            .add( {
-                text  : 'Editable',
-                value : 'name'
-            } ).customize( )
-                .cell( new base.EditInline )
-                .head( new base.Header     )
-                .end( )
-                .end( )
-            .add( {
-                text  : 'csssc',
-                value : 'toto'
-            } ).end( )
-            ;
+
 
         this.items( ).set( ).all( [
-            { id : 1 , name : 'toto4' , toto : 'toto2' } ,
-            { id : 2 , name : 'toto5' , toto : 'toto2'} ,
-            { id : 3 , name : 'toto3' , toto : 'toto2'} ,
-            { id : 4 , name : 'toto1' , toto : 'toto'} ,
-            { id : 5 , name : 'toto2' , toto : 'toto2'} ,
-            { id : 6 , name : 'toto4' , toto : 'toto2' } ,
-            { id : 7 , name : 'toto5' , toto : 'toto2'} ,
-            { id : 8 , name : 'toto3' , toto : 'toto2'} ,
-            { id : 9 , name : 'toto1' , toto : 'toto'} ,
-            { id : 10 , name : 'toto2' , toto : 'toto2'} ,
+            { id : 1 , editable : 'data4' , data1: 'data2' } ,
+            { id : 2 , editable : 'data5' , data1: 'data2'} ,
+            { id : 3 , editable : 'data3' , data1: 'data2'} ,
+            { id : 4 , editable : 'data1' , data1: 'data'} ,
+            { id : 5 , editable : 'data2' , data1: 'data2'} ,
+            { id : 6 , editable : 'data4' , data1: 'data2' } ,
+            { id : 7 , editable : 'data5' , data1: 'data2'} ,
+            { id : 8 , editable : 'data3' , data1: 'data2'} ,
+            { id : 9 , editable : 'data1' , data1: 'data'} ,
+            { id : 10 , editable : 'data2' , data1: 'data2'} ,
         ] );
     }
 }

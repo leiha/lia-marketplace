@@ -3,7 +3,7 @@ import { Search     } from "../workers/Search";
 import { Sort       } from "../workers/Sort";
 import { Selection  } from "../workers/Selection";
 import { Items      } from "../workers/Items";
-import { Columns    } from "../workers/Columns";
+import { Columns    } from "../columns/Columns";
 import { Header     } from "../workers/Header";
 import { Footer     } from "../workers/Footer";
 import { Pagination } from "../workers/Pagination";
