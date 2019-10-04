@@ -8,6 +8,7 @@ import { Header     } from "../workers/Header";
 import { Footer     } from "../workers/Footer";
 import { Pagination } from "../workers/Pagination";
 import {Menu} from "@lia/vuetify/datagrid/workers/Menu";
+import {Order} from "@lia/vuetify/datagrid/workers/Order";
 
 export class IocWorkers {
 
@@ -18,6 +19,11 @@ export class IocWorkers {
 
     menu = {
         $object    : ( ) => new Menu( ) ,
+        $singleton : true
+    };
+
+    order = {
+        $object    : ( ) => new Order( ) ,
         $singleton : true
     };
 

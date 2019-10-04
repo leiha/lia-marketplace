@@ -104,12 +104,20 @@ export class Props <
         return this.$builder.$data.has( name );
     }
 
-    set < T extends keyof TProps > ( name : T , value : TProps[ T ] ) {
+    bind < T extends keyof TProps > ( name : T , bindTo : string ) {
 
         //@ts-ignore
         if ( ! this.has( name ) )
-            //@ts-ignore
-            this.$store.push( (name == 'value' ? 'v-model' : ':'+ name ) +'="'+ 'data.'+name +'"' );
+        //@ts-ignore
+            this.$store.push( (name == 'value' ? 'v-model' : ':'+ name ) +'="'+ 'data.'+bindTo +'"' );
+
+        return this;
+    }
+
+    set < T extends keyof TProps > ( name : T , value : TProps[ T ] ) {
+
+        //@ts-ignore
+        this.bind( name , name );
 
         //@ts-ignore
         this.$builder.$data.set( name , value );

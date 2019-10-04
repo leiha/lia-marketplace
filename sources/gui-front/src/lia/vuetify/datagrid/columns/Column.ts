@@ -1,5 +1,4 @@
 
-import { HeaderProps   } from "../Datagrid-Types";
 import { Header }        from "./Header";
 import { Cell }          from "./Cell";
 import { ColumnsChild }  from "./Columns-Child";
@@ -19,7 +18,7 @@ export class Column extends ColumnsChild {
 
     onLoaded ( ) {
         this.dataGrid( ).sort( )
-            .get( ).sortBy( ).forEach( ( name ) => {
+            .config( ).sortBy.forEach( ( name ) => {
 
                 if( this.name == name ) {
                     this.config( )
@@ -70,7 +69,9 @@ export class Column extends ColumnsChild {
     }
 
     public config( ) {
-        return this.columns( ).config( ).get( ).byValue( this.name );
+        return this.columns( )
+            .config( ).get( ).by( this.name , 'value' )
+            ;
     }
 
     public header ( ) {

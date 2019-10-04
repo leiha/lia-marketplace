@@ -99,9 +99,7 @@ export class VueSlotHolder < TScope extends Scope = Scope , TVue extends Vue = V
 
     attach( name : string ) {
         this.$owner.vue( ).lifeCycle( ).subscribe( 'built' , ( ) => {
-
             this.vue( ).vue( ).props( ).push( 'scope' );
-
             // @ts-ignore
             this.$owner.vue( ).slot( ).add( name , { component : this.build( ) } );
         } );

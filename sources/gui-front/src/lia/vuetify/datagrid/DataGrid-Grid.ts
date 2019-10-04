@@ -2,10 +2,10 @@
 import * as ioc                       from "./ioc/Ioc";
 import * as iocBase                   from '@lia/core/ioc/Ioc-Simple';
 import { VueFacade }                  from '@lia/vue/vue';
-import { DataGridSlot               } from "./DataGrid-Slot";
 import { DataGridChild              } from "./DataGrid-Child";
 import { Data, Props, Slots, Events } from './Datagrid-Types';
 import { VueHolder                  } from "./vues/Vue-Holder";
+import { VueSlotHolder }              from "@lia/vue/Vue-Slot";
 
 export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
 
@@ -17,11 +17,11 @@ export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
                 return;
             }
 
-            if( plugin instanceof DataGridChild || VueHolder ) {
+            if( plugin.dataGrid$ ) {//plugin instanceof DataGridChild
                 plugin.dataGrid$( this );
             }
 
-            if( plugin instanceof DataGridSlot ) {
+            if( plugin instanceof VueSlotHolder ) {
                 // @ts-ignore
                 plugin.owner( this.vue( ) ).attach( );
             }
@@ -49,6 +49,10 @@ export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
         return this.$plugins;
     }
 
+    slots( ) {
+        return this.$plugins.get( 'slots' );
+    }
+
     menu( ) {
         return this.$plugins.get( 'workers' ).get( 'menu' );
     }
@@ -71,6 +75,10 @@ export class DataGrid extends VueFacade < Data , Slots , Props , Events > {
 
     search( ) {
         return this.$plugins.get( 'workers' ).get( 'search' );
+    }
+
+    order( ) {
+        return this.$plugins.get( 'workers' ).get( 'order' );
     }
 
     pagination( ) {

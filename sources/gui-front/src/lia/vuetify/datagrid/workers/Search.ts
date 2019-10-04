@@ -16,7 +16,7 @@ export class Search extends DataGridChild
     }
 
     set ( $search : Props[ 'search' ] ) {
-        this.vBind( ).set( 'search' , $search );
+        this.data( ).set( 'search' , $search );
         return this;
     }
 

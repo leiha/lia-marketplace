@@ -33,17 +33,33 @@ export class Events < TEvents >
 
     subscribe ( event : keyof TEvents , cb : Function ) {
 
-        // @ts-ignore
-        if( ! this.$registry[ event ] ) this.$registry[ event ] = [ ];
+        let $this  = this;
+        let length = 0;
+        let shift  = 0;
 
-        // @ts-ignore
-        let length = this.$registry[ event ].push( cb );
+        let subscriber = function( cb : Function ) {
+            // @ts-ignore
+            if( ! $this.$registry[ event ] ) $this.$registry[ event ] = [ ];
+
+            // @ts-ignore
+            length = $this.$registry[ event ].push( cb );
+            shift++;
+        };
+
+        subscriber( cb );
 
         return {
-            unsubscribe : ( ) => {
+            unsubscribe ( ) {
                 // @ts-ignore
-                this.$registry[ event ].splice( length - 1 , 1 );
+                this.$registry[ event ].splice( length - ( shift + 1 ) , shift );
                 return this;
+            } ,
+            and ( cb : Function ) {
+                subscriber( cb );
+                return this;
+            } ,
+            end ( ) {
+                return $this;
             }
         };
     }

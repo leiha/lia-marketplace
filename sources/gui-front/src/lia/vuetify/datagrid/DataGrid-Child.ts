@@ -21,16 +21,16 @@ export abstract class DataGridChild < TDataGrid extends DataGrid = DataGrid >
         return this.$dataGrid;
     }
 
+    slots( ) {
+        return this.dataGrid( ).slots( );
+    }
+
     vBind( ) {
         return this.dataGrid( ).vue( ).vBind( );
     }
 
     data( ) {
         return this.dataGrid( ).vue( ).data( );
-    }
-
-    workers( ) {
-        return this.dataGrid( ).plugins( ).get( 'workers' );
     }
 
     components( ) {

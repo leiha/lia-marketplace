@@ -1,5 +1,7 @@
 
 tbody
     tr
-        td( v-for="header in scope.props.headers" :key="header.value" ) {{ scope }}
+        td( v-for="header in scope.props.headers" :key="header.value" )
+            block content
+                | {{ scope }}
 

@@ -1,6 +1,14 @@
 
-thead
+thead( :$vBind v-on="$vOn" )
     tr
+        th( v-if="selection( ).config.enabled" class="unmovable" )
+            v-checkbox(
+                hide-details @click.native="selection( ).events.selectAll( )"
+                v-model="selection( ).config.all"
+                :indeterminate="selection( ).config.indeterminate"
+                )
+
+
         template( v-for="header in scope.props.headers" )
 
-            component( :is="component( header.value ).build( )" )
+            component( :is="component( header.value )" )

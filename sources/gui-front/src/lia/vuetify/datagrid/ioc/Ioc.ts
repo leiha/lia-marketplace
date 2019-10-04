@@ -2,7 +2,7 @@
 import * as ioc        from '@lia/core/ioc/Ioc-Simple';
 import { IocWorkers }  from "./Ioc-Workers";
 import { IocVues }     from "./Ioc-Vues";
-import {Column} from "@lia/vuetify/datagrid/columns/Column";
+import { IocSlots }    from "./Ioc-Slots";
 
 export class Services implements ioc.IocServicesType < Services >
 {
@@ -17,11 +17,10 @@ export class Services implements ioc.IocServicesType < Services >
         $singleton : true
     };
 
-    column = {
-        $object    : ( ) => new Column( ) ,
-        $singleton : false
+    slots = {
+        $object    : ( ) => new ioc.Ioc < IocSlots > ( new IocSlots( ) ) ,
+        $singleton : true
     };
-
 }
 
 export class Ioc extends ioc.Ioc < Services > {

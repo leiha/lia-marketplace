@@ -1,26 +1,4 @@
-
 v-flex
 
     v-data-table( :$vBind v-on="$vOn" )
         include ../../vue/Vue-Slots
-
-        //template( slot="header" slot-scope="props" )
-        //    thead
-        //        tr( )
-        //            th( class="unmovable" )
-        //                v-checkbox(
-        //                    hide-details @click.native="selectAll( props )"
-        //                    v-model="data.selection.all"
-        //                    :indeterminate="data.selection.indeterminate"
-        //                    )
-        //
-        //            template( v-for="header in data.headers" )
-        //                th( :key="header.value" @click="applyHeaderClick( header )"
-        //                    :class="header.classes"
-        //                 ) {{ header.text }}
-        //                    v-icon( v-if="! data.disableSort" ) {{ header.icons.sort }}
-
-
-        //template( slot="header" slot-scope="props" )
-        //    include ./columns/Headers-Node
-

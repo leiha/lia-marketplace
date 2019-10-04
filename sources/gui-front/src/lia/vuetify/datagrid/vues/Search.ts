@@ -6,6 +6,7 @@ export class Search extends VueHolder < Text >
 {
     prepare( ) {
         return ( new Text( ) )
+            .name$( 'SearchBox' )
             .vBind( )
                 .add( 'value'      , ''       )
                 .add( 'appendIcon' , 'search' )

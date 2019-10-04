@@ -9,32 +9,36 @@ export class DataGrid extends base.DataGrid {
         this.columns( )
         //.enableReOrder( )
 
-            .column( 'data1' )
+            .column$( 'data1' )
             .end( )
 
-            .column( 'id' )
+            .column$( 'id' )
             .end( )
 
-            .column( 'editable' )
+            .column$( 'editable' )
             // .header( ).vNode$( new base.Header     ).end( )
             // .cell  ( ).vNode$( new base.EditInline ).end( )
             .end( )
         ;
 
         this.menu( )
-            .disable( )
+            .enable( )
             ;
 
         this.selection( )
-            .disable( )
+            .enable( )
             ;
 
         this.search( )
-            .disable( )
+            .enable( )
             ;
 
+        this.order( )
+            .enable( )
+        ;
+
         this.pagination( )
-            .disable( )
+            .enable( )
             ;
 
         this.header( )
@@ -44,7 +48,7 @@ export class DataGrid extends base.DataGrid {
         this.sort( )
             .enable( true )
             .by    ( 'data1' )
-            .by    ( 'editable' , "desc" )
+            .by    ( 'editable' , 'desc' )
             ;
 
 

@@ -106,11 +106,28 @@ export interface Events {
 }
 
 export interface Data extends Props {
+
     columns   : Column[ ]
+
     pageCount : number
+
+    sort : {
+        disabled : boolean    ,
+        sortBy   : string [ ] ,
+        sortDesc : boolean[ ] ,
+        multiple : boolean
+    }
+
+    order : {
+        enabled       : boolean  ,
+    }
+
     selection : {
-        all : boolean
-        indeterminate : boolean
+        enabled       : boolean  ,
+        all           : boolean  ,
+        indeterminate : boolean  ,
+        single        : boolean  ,
+        items         : any[ ]
     }
 }
 
