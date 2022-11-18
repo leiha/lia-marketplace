@@ -35,7 +35,7 @@
     "@types/webpack": "^4.39.1",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-typescript": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-service": "^5.0.8",
     "html-loader": "^0.5.5",
     "node-sass": "^4.9.0",
     "pug-loader": "^2.4.0",
